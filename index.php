@@ -27,7 +27,7 @@
             
             <button type="button" id = 'confirm' onclick = 'conf()'>Add</button>
             
-            <div id = 'basket'>test</div>
+            <div id = 'basket'>temporary text [basket div]</div>
             
             
             <button type="button" id = 'wipe' onclick = 'clearBox("basket")'>Clear</button>
@@ -45,7 +45,8 @@
             var ingredients = [];
             
             function conf() {
-                ingredients.push($('#ddMenu').val());
+                if(!(ingredients.includes($('#ddMenu').val())))
+                    ingredients.push($('#ddMenu').val());
                 display();
                 
             }
