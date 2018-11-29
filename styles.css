@@ -1,0 +1,38 @@
+body {
+    background-color: #6D7993 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    
+}
+
+
+#mainblock {
+    background-color: #D5D5D5;
+    width: 55%;
+    height: 100vh;
+    margin: 0 auto;
+    border-radius: 25px;
+    
+}
+
+#line {
+    width: 50%;
+    height: 5px;
+    background-color: #9099A2;
+    margin: 0 auto;
+    
+}
+
+#dropdown {
+    margin: 0 auto;
+    display: inline-block;
+}
+
+
