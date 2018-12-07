@@ -36,11 +36,17 @@ if(isset($_GET['tag']))
             {
                 echo "<h1 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h1>";
                 $recipes = ingredientSearch($_GET['tag'], 5);
-                //print_r($recipes);
+                //$description = descriptionSearch($recipes[0]['id']);
+                //print_r($_GET['tag']);
+                //print_r($recipes['id']);
+                //print_r($description);
                 echo "<br>";
                 for($i = 0; $i < 5; $i++)
                 {
-                    echo $recipes[$i]['title'];
+                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+                    //$description = descriptionSearch($recipes[$i]['id']);
+                    echo descriptionSearch($recipes[$i]['id'])['summary'];
+                    echo $description['summary'];
                     echo "<br>";
                     echo "<img src= " . $recipes[$i]['image'] .">";
                     echo "<br></br>";
@@ -49,6 +55,8 @@ if(isset($_GET['tag']))
         }
         ?>
         </main>
-        
+        <script>
+            
+        </script>
     </body>    
 </html>
