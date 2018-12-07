@@ -30,9 +30,12 @@ if(isset($_GET['tag']))
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>   
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
     </head>
     <body>
-        <br><br><br>
+        <br>
         <header>
             <h1>Recipe Search</h1>
         </header>
@@ -40,8 +43,12 @@ if(isset($_GET['tag']))
         <form>
             <input type="text" name="tag" placeholder = "Enter Ingredients" value="<?=$_GET['tag']?>"/>
             </br>
-            <input type="Submit" value="Search"/>
-            <button id="trivia">test</button>
+
+            <!--<input type="Submit" value="Search"/>-->
+            <!--<button id="trivia">test</button>-->
+
+            <input type="image" src = './img/glass.png' id = 'searchButton'/>
+
         </form>
         
         <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createModal()">
@@ -80,10 +87,10 @@ if(isset($_GET['tag']))
         { 
             if(!empty($tag))
             {
-                echo "<h1 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h1>";
+                echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
                 $recipes = ingredientSearch($_GET['tag'], 5);
                 //print_r($recipes);
-                echo "<br>";
+                
                 for($i = 0; $i < 5; $i++)
                 {
                     echo $recipes[$i]['title'];
