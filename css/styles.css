@@ -2,23 +2,33 @@ body{
     opacity:0.9;
     width:100%;
     text-align:center;
-    background-color: #ff3232;
+    background-color: #d7cec7;
     color: black;
     font-size: 50px;
-    font-family: 'EB Garamond', serif;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 label{
     font-size: 30px;
+    
 }
 
 header, h1 {
     text-decoration: underline;
     font-size: 100px;
     margin: 10px;
-    color: white;
+    color: #565656;
     margin-bottom: 40px;
 }
+
+h2 {
+    font-size: 60px;
+    margin: 10px;
+    color: #565656;
+    margin-bottom: 40px;
+}
+
 input{
     margin-bottom: 40px;
     height: 65px;
@@ -28,5 +38,10 @@ img {
 }
 .recipeInfo {
     font-size: 35px;
+    
+}
+
+#searchButton {
+    
     
 }

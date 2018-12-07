@@ -12,9 +12,12 @@ if(isset($_GET['tag']))
         <link href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel = "stylesheet">
         <style>@import url("./css/styles.css");</style>
         <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
     </head>
     <body>
-        <br><br><br>
+        <br>
         <header>
             <h1>Recipe Search</h1>
         </header>
@@ -22,7 +25,7 @@ if(isset($_GET['tag']))
         <form>
             <input type="text" name="tag" placeholder = "Enter Ingredients" value="<?=$_GET['tag']?>"/>
             </br>
-            <input type="Submit" value="Search"/><button id="trivia">test</button>
+            <input type="image" src = './img/glass.png' id = 'searchButton'/>
         </form>
         
         <?php
@@ -34,13 +37,12 @@ if(isset($_GET['tag']))
         { 
             if(!empty($tag))
             {
-                echo "<h1 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h1>";
+                echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
                 $recipes = ingredientSearch($_GET['tag'], 5);
-                //$description = descriptionSearch($recipes[0]['id']);
-                //print_r($_GET['tag']);
-                //print_r($recipes['id']);
-                //print_r($description);
+
                 echo "<br>";
+                //print_r($recipes);
+                
                 for($i = 0; $i < 5; $i++)
                 {
                     echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
