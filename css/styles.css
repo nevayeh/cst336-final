@@ -2,7 +2,7 @@ body{
     opacity:0.9;
     width:100%;
     text-align:center;
-    background-color: pink;
+    background-color: #ff3232;
     color: black;
     font-size: 50px;
     font-family: 'EB Garamond', serif;
@@ -11,35 +11,22 @@ body{
 label{
     font-size: 30px;
 }
-h1 {
-    font-size: 50px;
-}
 
-header h1 {
+header, h1 {
     text-decoration: underline;
-    font-size: 150px;
+    font-size: 100px;
     margin: 10px;
     color: white;
+    margin-bottom: 40px;
 }
-
-
-
+input{
+    margin-bottom: 40px;
+    height: 65px;
+}
 img {
     width: 600px;
 }
 .recipeInfo {
     font-size: 35px;
     
-}
-
-footer {
-   
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
-     
-    font-size: 20px;
 }
