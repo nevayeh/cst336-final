@@ -89,11 +89,16 @@ if(isset($_GET['tag']))
             {
                 echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
                 $recipes = ingredientSearch($_GET['tag'], 5);
+
+                echo "<br>";
                 //print_r($recipes);
                 
                 for($i = 0; $i < 5; $i++)
                 {
-                    echo $recipes[$i]['title'];
+                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+                    //$description = descriptionSearch($recipes[$i]['id']);
+                    echo descriptionSearch($recipes[$i]['id'])['summary'];
+                    echo $description['summary'];
                     echo "<br>";
                     echo "<img src= " . $recipes[$i]['image'] .">";
                     echo "<br></br>";
@@ -103,8 +108,7 @@ if(isset($_GET['tag']))
         ?>
         </main>
         
-        
         <script src="modal/modal.js"></script>
-        
+
     </body>    
 </html>
