@@ -45,7 +45,7 @@
             var ingredients = [];
             
             function conf() {
-                if(!(ingredients.includes($('#ddMenu').val())))
+                if(!ingredients.includes($('#ddMenu').val()))
                     ingredients.push($('#ddMenu').val());
                 display();
                 
