@@ -45,3 +45,10 @@ img {
     
     
 }
+#fact{
+    color: #565656;
+    font-size: 25px;
+}
+.navbar-expand-lg .navbar-collapse {
+    font-size: 30px;
+}
