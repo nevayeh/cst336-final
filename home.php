@@ -115,7 +115,6 @@ if(isset($_GET['tag']))
             {
                 echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
                 $recipes = ingredientSearch($_GET['tag'], 5);
-
                 echo "<br>";
                 //print_r($recipes);
                 
@@ -125,6 +124,9 @@ if(isset($_GET['tag']))
                     echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
                     // echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
                     echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+                    echo getInstructions($recipes[$i]['id'])['instructions'];
+                    
+                    
                     //$description = descriptionSearch($recipes[$i]['id']);
                     // echo descriptionSearch($recipes[$i]['id'])['summary'];
                     // echo $description['summary'];
