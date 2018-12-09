@@ -1,32 +1,37 @@
-function createModal()
+function createTestModal()
 {
-    console.log("creating modal");
-    
-    $("#recipeModal").show();
-    // $("#modalBody").html("<img src='img/loading.gif'/>");
-    
+    console.log("Creating test modal");
+    $("#recipeModal").modal('show');
     $("#recipeModalLabel").html("Recipe name");
     $("#recipeInfoDiv").html("Information");
+}
+
+function createModal(id, recipeImage)
+{
+    console.log("creating modal. id: " + id);
+    console.log("image: " + recipeImage);
     
-    /*
+    $("#recipeModal").modal('show');
+    $("#recipeModalLabel").html(""); //prevents both loading and recipe info showing (after clicking on another recipe)
+    $("#recipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading.gif" alt="loading"/>');
+    $("#recipeInfoDiv").html("");
+    
     $.ajax(
     {
         type: "get",
         url: "api/getRecipeInfo.php",
         dataType: "json",
-        data: {"name": name} ,
+        data: {"id": id} ,
         success: function(data, status)
         {
-            $("#recipeModalLabel").html(data[0].name);
-            $("#recipeImgDiv").html("<img style='width: 250px' src='img/" + data[0].name.toLowerCase() + ".jpg'/>")
-                .css("display", "inline-block");
+            console.log("SUCCESS");
+            console.log(data);
             
-            $("#recipeInfoDiv").html("Age: " + (currentYear - data[0].yob) + "<br/>")
-                .append("Breed: " + data[0].breed + "<br/>")
-                .append(data[0].description + "</div>")
-                .css("display", "inline-block")
-                .css("text-align", "left")
-                .css("padding-left", "25px");
+            $("#recipeModalLabel").html(data.title);
+            // $("#recipeImgDiv").html('<img src="' + recipeImage + '" alt="recipe image">');
+            $("#recipeImgDiv").html(""); //clears loading.gif
+            $("#recipeInfoDiv").html(data.summary)
+                .css("font-size", "20px");
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -40,5 +45,5 @@ function createModal()
             console.log(status);
         }
     });
-    */
+    
 }

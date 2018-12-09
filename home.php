@@ -51,14 +51,48 @@ if(isset($_GET['tag']))
 
         </form>
         
-        <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createModal()">
+        <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createTestModal()">
             Recipe Modal
         </button>
         
         <?php
-        
+
+        if(empty($_GET)) // form was not submitted
+        { 
+            echo "";
+        } 
+        else // form was submitted
+        { 
+            if(!empty($tag))
+            {
+                echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
+                $recipes = ingredientSearch($_GET['tag'], 5);
+
+                echo "<br>";
+                // print_r($recipes);
+
+                for($i = 0; $i < 5; $i++)
+                {
+                    // $recipeImage = $recipes[$i]['image'];
+                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
+                    // echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
+                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+                    //$description = descriptionSearch($recipes[$i]['id']);
+                    // echo descriptionSearch($recipes[$i]['id'])['summary'];
+                    // echo $description['summary'];
+                    // echo "<br>";
+                    echo "<img src='" . $recipes[$i]['image'] ."'>";
+                    // echo "<br></br>";
+                    echo '</div>';
+                    echo '<br/><br/>';
+                    // echo '</button>';
+                }
+            }
+        }
+
     
         echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
+        // echo '<div class="modal" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
             echo '<div class="modal-dialog modal-lg" role="document">';
                 echo '<div class="modal-content">';
                     echo '<div class="modal-header">';
@@ -79,32 +113,6 @@ if(isset($_GET['tag']))
         echo '</div> <br/>';
         
         
-        if(empty($_GET)) // form was not submitted
-        { 
-            echo "";
-        } 
-        else // form was submitted
-        { 
-            if(!empty($tag))
-            {
-                echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
-                $recipes = ingredientSearch($_GET['tag'], 5);
-
-                echo "<br>";
-                //print_r($recipes);
-                
-                for($i = 0; $i < 5; $i++)
-                {
-                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
-                    //$description = descriptionSearch($recipes[$i]['id']);
-                    echo descriptionSearch($recipes[$i]['id'])['summary'];
-                    echo $description['summary'];
-                    echo "<br>";
-                    echo "<img src= " . $recipes[$i]['image'] .">";
-                    echo "<br></br>";
-                }
-            }
-        }
         ?>
         </main>
         
