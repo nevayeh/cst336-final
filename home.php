@@ -44,153 +44,163 @@ if(isset($_GET['tag']))
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 
-              <a class="nav-item nav-link" id="logIn" href="#" onclick="logInModal()">Log-In</a>
+              <a class="nav-item nav-link" id="logIn" href="#" onclick="createLogInModal()">Log-In</a>
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
             </div>
           </div>
         </nav>
+        
         <br>
+        
         <header>
             <h1>Recipe Search</h1>
         </header>
+        
         <main>
-        <form>
-            <input type="text" name="tag" placeholder = "Enter Ingredients" value="<?=$_GET['tag']?>"/>
-            </br>
-
-            <!--<input type="Submit" value="Search"/>-->
-            <!--<button id="trivia">test</button>-->
-
-            <input type="image" src = './img/glass.png' id = 'searchButton'/>
-
-        </form>
-        
-        <!--FOOD FACT DIV-->
-        <div id="fact">
-            Food Fact!
+            <form>
+                <input type="text" name="tag" placeholder = "Enter Ingredients" value="<?=$_GET['tag']?>"/>
+                </br>
+                <input type="image" src = './img/glass.png' id = 'searchButton'/>
+            </form>
+            
+            <!--FOOD FACT DIV-->
+            <div id="fact">
+                <!--Food Fact!-->
+                Did you know?
+                <br>
+                <?php 
+                    $foodFact = foodFact();
+                    echo $foodFact['text'];
+                ?>
+            </div>
+            
+            <br/>
+            
+            <!--FOOD JOKE DIV-->
+            <div id="joke">
+                The Lols
+                <br/>
+                <?php 
+                    $joke = foodJoke();
+                    echo $joke['text'];
+                ?>
+            </div>
+            
             <br>
+    
             <?php
-                $foodFact = foodFact();
-                echo $foodFact['text'];
-            ?>
-        </div>
-        
-        <br>
-        
-        <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createTestModal()">
-            Test Recipe Modal
-        </button>
-        
-        <?php
-        
-        //RECIPE MODAL
-        echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
-            echo '<div class="modal-dialog modal-lg" role="document">';
-                echo '<div class="modal-content">';
-                    echo '<div class="modal-header">';
-                        echo '<h5 class="modal-title" id="recipeModalLabel"></h5>'; //RECIPE NAME GOES IN HERE
-                        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                            echo '<span aria-hidden="true">&times;</span>';
-                        echo '</button>';
-                    echo '</div>';
-                    echo '<div class="modal-body">';
-                        echo '<div style="inline-block" id="recipeImgDiv"></div>'; //RECIPE IMAGE GOES HERE
-                        echo '<div style="inline-block" id="recipeInfoDiv" ></div>'; //RECIPE INFO GOES HERE
-                    echo '</div>';
-                    echo '<div class="modal-footer">';
-                        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>';
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        echo '</div> <br/>';
-        
-        //LOG IN MODAL
-        echo '<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">';
-            echo '<div class="modal-dialog modal-lg" role="document">';
-                echo '<div class="modal-content">';
-                    echo '<div class="modal-header">';
-                        echo '<h5 class="modal-title" id="logInModalLabel">Log In</h5>'; 
-                        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                            echo '<span aria-hidden="true">&times;</span>';
-                        echo '</button>';
-                    echo '</div>';
-                    echo '<div class="modal-body">';
-                        //Username
-                        echo '<div class="form-group">';
-                            echo '<label for="formGroupUsernameInput">Username</label>';
-                            echo '<input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">';
-                        echo '</div>';
-                        //Password
-                        echo '<div class="form-group">';
-                            echo '<label for="formGroupPasswordInput">Password</label>';
-                            echo '<input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">';
-                        echo '</div>';
-                        echo '<div id="logInVerification"></div>'; //LOG IN ERROR MESSAGE GOES HERE (if wrong credentials)
-                        echo '<button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>';
-                    echo '</div>';
-                    // echo '<div class="modal-footer">';
-                        // echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
-                    // echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        echo '</div> <br/>';
-        
-        
-        if(empty($_GET)) // form was not submitted
-        { 
-            echo "";
-        } 
-        else // form was submitted
-        { 
-            if(!empty($tag))
-            {
-                echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
-                $recipes = ingredientSearch($_GET['tag'], 5);
-                echo "<br>";
-                //print_r($recipes);
-                
-                for($i = 0; $i < 5; $i++)
+
+            if(empty($_GET)) // form was not submitted
+            { 
+                echo "";
+            } 
+            else // form was submitted
+            { 
+                if(!empty($tag))
                 {
-                    
-                    
-                    //---------------------------------------------------------------------------------------
-                    // Recipe title and image goes in a "recipeResult" div
-                    // User can click anywhere on div (includes empty space on either side of image / title)
-                    // ---------------------------------------------------------------------------------------
-                    
-                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
-
-                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
-                    //echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
-                    echo getInstructions($recipes[$i]['id'])['instructions'];
-                    
-                    
-                    $description = descriptionSearch($recipes[$i]['id']);
-                    echo descriptionSearch($recipes[$i]['id'])['summary'];
-                    echo $description['summary'];
+                    echo "<h2 style= 'margin: 0'> You searched for: ". $_GET['tag']. "</h2>";
+                    $recipes = ingredientSearch($_GET['tag'], 5);
                     echo "<br>";
-                    //echo "<p style='color:white' id='recipeLabel" . $i . "'>" . $recipes[$i]['title'] . "</p>";
+                    //print_r($recipes);
+                    
+                    for($i = 0; $i < 5; $i++)
+                    {
+                        
+                        /*
+                        
+                        //---------------------------------------------------------------------------------------
+                        // ! ! ! Do not use this if code block below is used ! ! !
+                        //
+                        // Recipe title and image goes in a "recipeResult" div
+                        // User can click anywhere on div (includes empty space on either side of image / title)
+                        // ---------------------------------------------------------------------------------------
+                        
+                        echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
+                        echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+                        // echo getInstructions($recipes[$i]['id'])['instructions']; //recipe instructions
+                        // $description = descriptionSearch($recipes[$i]['id']);
+                        // echo descriptionSearch($recipes[$i]['id'])['summary'];
+                        // echo $description['summary'];
+                        echo "<br>";
+    
+                        echo "<img src='" . $recipes[$i]['image'] ."'>";
+                        echo '</div>';
+                        echo '<br/><br/>';
+                        
+                        */
 
-                    //echo "<img src='" . $recipes[$i]['image'] ."'>";
-                    echo '</div>';
-                    echo '<br/><br/>';
-                    
-                    
-                    // ---------------------------------------------------------------------------------------
-                    // Recipe and title will both create the modal for the respective recipe
-                    // User cannot click on empty space to side of image/title
-                    // ---------------------------------------------------------------------------------------
-                    
-                    echo '<div class="recipeResult">';
-                    echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:40px;padding:10px 50px;margin-bottom:0px" onclick="createModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
-                    echo '<img id="' . $recipes[$i]['id'] . '" src="' . $recipes[$i]['image'] .'" onclick="createModal(this.id)">';
-                    echo '</div>';
-                    echo '<br/>';
+                        // ---------------------------------------------------------------------------------------
+                        // ! ! ! Do not use this if code block above is used ! ! !
+                        //
+                        // Recipe and title will both create the modal for the respective recipe
+                        // User cannot click on empty space to side of image/title
+                        // ---------------------------------------------------------------------------------------
+                        
+                        echo '<div class="recipeResult">';
+                        echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:40px;padding:10px 50px;margin-bottom:0px" onclick="createRecipeModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
+                        echo '<img id="' . $recipes[$i]['id'] . '" src="' . $recipes[$i]['image'] .'" onclick="createRecipeModal(this.id)">';
+                        echo '</div>';
+                        echo '<br/>';
+                        
+                    }
                 }
             }
-        }
-        ?>
+            
+            //RECIPE MODAL
+            echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
+                echo '<div class="modal-dialog modal-lg" role="document">';
+                    echo '<div class="modal-content">';
+                        echo '<div class="modal-header">';
+                            echo '<h5 class="modal-title" id="recipeModalLabel"></h5>'; //RECIPE NAME GOES IN HERE
+                            echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                echo '<span aria-hidden="true">&times;</span>';
+                            echo '</button>';
+                        echo '</div>';
+                        echo '<div class="modal-body">';
+                            echo '<div style="inline-block" id="recipeImgDiv"></div>'; //RECIPE IMAGE GOES HERE
+                            echo '<div style="inline-block" id="recipeInfoDiv" ></div>'; //RECIPE INFO GOES HERE
+                        echo '</div>';
+                        echo '<div class="modal-footer">';
+                            echo '<button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div> <br/>';
+            
+            //LOG IN MODAL
+            echo '<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">';
+                echo '<div class="modal-dialog modal-lg" role="document">';
+                    echo '<div class="modal-content">';
+                        echo '<div class="modal-header">';
+                            echo '<h5 class="modal-title" id="logInModalLabel">Log In</h5>'; 
+                            echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                echo '<span aria-hidden="true">&times;</span>';
+                            echo '</button>';
+                        echo '</div>';
+                        echo '<div class="modal-body">';
+                            //Username
+                            echo '<div class="form-group">';
+                                echo '<label for="formGroupUsernameInput">Username</label>';
+                                echo '<input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">';
+                            echo '</div>';
+                            //Password
+                            echo '<div class="form-group">';
+                                echo '<label for="formGroupPasswordInput">Password</label>';
+                                echo '<input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">';
+                            echo '</div>';
+                            echo '<div id="logInVerification"></div>'; //LOG IN ERROR MESSAGE GOES HERE (if wrong credentials)
+                            echo '<button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>';
+                        echo '</div>';
+                        // echo '<div class="modal-footer">';
+                            // echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                        // echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+            echo '</div> <br/>';
+            
+            ?>
+            
         </main>
         
         <script src="modal/modal.js"></script>
