@@ -6,10 +6,11 @@ function createTestModal()
     $("#recipeInfoDiv").html("Information");
 }
 
-function createModal(id, recipeImage)
+// function createModal(id, recipeImage)
+function createModal(id)
 {
     console.log("creating modal. id: " + id);
-    console.log("image: " + recipeImage);
+    // console.log("image: " + recipeImage);
     
     $("#recipeModal").modal('show');
     $("#recipeModalLabel").html(""); //prevents both loading and recipe info showing (after clicking on another recipe)

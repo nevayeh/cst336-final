@@ -5,6 +5,7 @@ if(isset($_GET['tag']))
     $tag= $_GET['tag'];
 }
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +27,7 @@ if(isset($_GET['tag']))
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <style>@import url("./css/styles.css");</style>
         <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
-        <script type="text/javascript" src="js/functions.js"></script>
+    
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>   
@@ -76,13 +77,13 @@ if(isset($_GET['tag']))
         </div>
         
         <br>
-        <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createModal()">
-            Recipe Modal
+        
+        <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createTestModal()">
+            Test Recipe Modal
         </button>
         
         <?php
         
-    
         echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
             echo '<div class="modal-dialog modal-lg" role="document">';
                 echo '<div class="modal-content">';
@@ -120,13 +121,19 @@ if(isset($_GET['tag']))
                 
                 for($i = 0; $i < 5; $i++)
                 {
+                    // $recipeImage = $recipes[$i]['image'];
+                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
+                    // echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
                     echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
                     //$description = descriptionSearch($recipes[$i]['id']);
-                    echo descriptionSearch($recipes[$i]['id'])['summary'];
-                    echo $description['summary'];
-                    echo "<br>";
-                    echo "<img src= " . $recipes[$i]['image'] .">";
-                    echo "<br></br>";
+                    // echo descriptionSearch($recipes[$i]['id'])['summary'];
+                    // echo $description['summary'];
+                    // echo "<br>";
+                    echo "<img src='" . $recipes[$i]['image'] ."'>";
+                    // echo "<br></br>";
+                    echo '</div>';
+                    echo '<br/><br/>';
+                    // echo '</button>';
                 }
             }
         }
