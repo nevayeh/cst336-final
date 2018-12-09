@@ -1,8 +1,8 @@
 <?php
+include './api/spoonacularAPI.php';
 if(isset($_GET['tag']))
 {
     $tag= $_GET['tag'];
-    include './api/spoonacularAPI.php';
 }
 ?>
 <!DOCTYPE html>
@@ -51,6 +51,17 @@ if(isset($_GET['tag']))
 
         </form>
         
+        <!--FOOD FACT DIV-->
+        <div id="fact">
+            Food Fact!
+            <br>
+            <?php
+                $foodFact = foodFact();
+                echo $foodFact['text'];
+            ?>
+        </div>
+        
+        <br>
         <button type="button" class="recipeModalButton" data-toggle="modal" data-target="#recipeModal" onclick="createModal()">
             Recipe Modal
         </button>
