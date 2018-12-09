@@ -152,31 +152,30 @@ if(isset($_GET['tag']))
                 
                 for($i = 0; $i < 5; $i++)
                 {
-                    /*
                     
-                    // ---------------------------------------------------------------------------------------
+                    
+                    //---------------------------------------------------------------------------------------
                     // Recipe title and image goes in a "recipeResult" div
                     // User can click anywhere on div (includes empty space on either side of image / title)
                     // ---------------------------------------------------------------------------------------
                     
                     echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
-<<<<<<< HEAD
-                    // echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
-                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
+
+                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
+                    //echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
                     echo getInstructions($recipes[$i]['id'])['instructions'];
                     
                     
-                    //$description = descriptionSearch($recipes[$i]['id']);
-                    // echo descriptionSearch($recipes[$i]['id'])['summary'];
-                    // echo $description['summary'];
-                    // echo "<br>";
-=======
-                    echo "<p style='color:white' id='recipeLabel" . $i . "'>" . $recipes[$i]['title'] . "</p>";
->>>>>>> 2288c2441f28b477592a325deeb73373b8a4d8d5
-                    echo "<img src='" . $recipes[$i]['image'] ."'>";
+                    $description = descriptionSearch($recipes[$i]['id']);
+                    echo descriptionSearch($recipes[$i]['id'])['summary'];
+                    echo $description['summary'];
+                    echo "<br>";
+                    //echo "<p style='color:white' id='recipeLabel" . $i . "'>" . $recipes[$i]['title'] . "</p>";
+
+                    //echo "<img src='" . $recipes[$i]['image'] ."'>";
                     echo '</div>';
                     echo '<br/><br/>';
-                    */
+                    
                     
                     // ---------------------------------------------------------------------------------------
                     // Recipe and title will both create the modal for the respective recipe
