@@ -6,11 +6,18 @@ function createTestModal()
     $("#recipeInfoDiv").html("Information");
 }
 
-// function createModal(id, recipeImage)
+function logInModal()
+{
+    console.log("Somehow Create a Log In Modal Here");
+    
+    $("#logInModal").modal('show');
+    
+}
+
+
 function createModal(id)
 {
     console.log("creating modal. id: " + id);
-    // console.log("image: " + recipeImage);
     
     $("#recipeModal").modal('show');
     $("#recipeModalLabel").html(""); //prevents both loading and recipe info showing (after clicking on another recipe)
@@ -29,7 +36,6 @@ function createModal(id)
             console.log(data);
             
             $("#recipeModalLabel").html(data.title);
-            // $("#recipeImgDiv").html('<img src="' + recipeImage + '" alt="recipe image">');
             $("#recipeImgDiv").html(""); //clears loading.gif
             $("#recipeInfoDiv").html(data.summary)
                 .css("font-size", "20px");

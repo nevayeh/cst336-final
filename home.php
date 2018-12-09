@@ -44,7 +44,7 @@ if(isset($_GET['tag']))
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 
-              <a class="nav-item nav-link" id="logIn" href="#" onclick="logIn()">Log-In</a>
+              <a class="nav-item nav-link" id="logIn" href="#" onclick="logInModal()">Log-In</a>
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
             </div>
@@ -84,6 +84,7 @@ if(isset($_GET['tag']))
         
         <?php
         
+        //RECIPE MODAL
         echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
             echo '<div class="modal-dialog modal-lg" role="document">';
                 echo '<div class="modal-content">';
@@ -98,8 +99,39 @@ if(isset($_GET['tag']))
                         echo '<div style="inline-block" id="recipeInfoDiv" ></div>'; //RECIPE INFO GOES HERE
                     echo '</div>';
                     echo '<div class="modal-footer">';
-                        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>';
                     echo '</div>';
+                echo '</div>';
+            echo '</div>';
+        echo '</div> <br/>';
+        
+        //LOG IN MODAL
+        echo '<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">';
+            echo '<div class="modal-dialog modal-lg" role="document">';
+                echo '<div class="modal-content">';
+                    echo '<div class="modal-header">';
+                        echo '<h5 class="modal-title" id="logInModalLabel">Log In</h5>'; 
+                        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                            echo '<span aria-hidden="true">&times;</span>';
+                        echo '</button>';
+                    echo '</div>';
+                    echo '<div class="modal-body">';
+                        //Username
+                        echo '<div class="form-group">';
+                            echo '<label for="formGroupUsernameInput">Username</label>';
+                            echo '<input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">';
+                        echo '</div>';
+                        //Password
+                        echo '<div class="form-group">';
+                            echo '<label for="formGroupPasswordInput">Password</label>';
+                            echo '<input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">';
+                        echo '</div>';
+                        echo '<div id="logInVerification"></div>'; //LOG IN ERROR MESSAGE GOES HERE (if wrong credentials)
+                        echo '<button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>';
+                    echo '</div>';
+                    // echo '<div class="modal-footer">';
+                        // echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                    // echo '</div>';
                 echo '</div>';
             echo '</div>';
         echo '</div> <br/>';
@@ -121,19 +153,30 @@ if(isset($_GET['tag']))
                 
                 for($i = 0; $i < 5; $i++)
                 {
-                    // $recipeImage = $recipes[$i]['image'];
+                    /*
+                    
+                    // ---------------------------------------------------------------------------------------
+                    // Recipe title and image goes in a "recipeResult" div
+                    // User can click anywhere on div (includes empty space on either side of image / title)
+                    // ---------------------------------------------------------------------------------------
+                    
                     echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id)">';
-                    // echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createModal(this.id, ' . $recipeImage . ')">';
-                    echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
-                    //$description = descriptionSearch($recipes[$i]['id']);
-                    // echo descriptionSearch($recipes[$i]['id'])['summary'];
-                    // echo $description['summary'];
-                    // echo "<br>";
+                    echo "<p style='color:white' id='recipeLabel" . $i . "'>" . $recipes[$i]['title'] . "</p>";
                     echo "<img src='" . $recipes[$i]['image'] ."'>";
-                    // echo "<br></br>";
                     echo '</div>';
                     echo '<br/><br/>';
-                    // echo '</button>';
+                    */
+                    
+                    // ---------------------------------------------------------------------------------------
+                    // Recipe and title will both create the modal for the respective recipe
+                    // User cannot click on empty space to side of image/title
+                    // ---------------------------------------------------------------------------------------
+                    
+                    echo '<div class="recipeResult">';
+                    echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:40px;padding:10px 50px;margin-bottom:0px" onclick="createModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
+                    echo '<img id="' . $recipes[$i]['id'] . '" src="' . $recipes[$i]['image'] .'" onclick="createModal(this.id)">';
+                    echo '</div>';
+                    echo '<br/>';
                 }
             }
         }
