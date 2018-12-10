@@ -3,6 +3,10 @@ include './api/spoonacularAPI.php';
 if(isset($_GET['tag']))
 {
     $tag= $_GET['tag'];
+    // $number = $_GET['quantity'];
+}
+if(isset($_GET['quantity'])){
+    $quantity = $_GET['quantity'];
 }
 ?>
 
@@ -63,15 +67,11 @@ if(isset($_GET['tag']))
             <form>
                 <div class = 'inputs'>
                     <input class = 'inputs' type="text" name="tag" placeholder = "e.g. Milk, Chocolate" value="<?=$_GET['tag']?>"/>
+                    <input type="number" name="quantity" min="1" max="5" placeholder=# />
                     <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/>
                 </div>
+                
             </form>
-            
-            <div class="filters">
-                Cook Time<br>
-                20 Minute Recipe<input id="cookTime" type="checkbox" name="cookTime" value=30>
-            </div>
-            
             
             
             <!--FOOD FACT DIV-->
@@ -108,14 +108,15 @@ if(isset($_GET['tag']))
                 } 
                 else // form was submitted
                 { 
+                    //print_r($quantity);
                     if(!empty($tag))
                     {
                         echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
-                        $recipes = ingredientSearch($_GET['tag'], 5);
+                        $recipes = ingredientSearch($_GET['tag'], $quantity);
                         echo "<br>";
                         //print_r($recipes);
                         
-                        for($i = 0; $i < 5; $i++)
+                        for($i = 0; $i < $quantity; $i++)
                         {
                             
                             /*
