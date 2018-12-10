@@ -2,9 +2,11 @@ function createLogInModal()
 {
     console.log("Somehow Create a Log In Modal Here");
     
-    $("#logInModal").modal('show');
+    $("#logInModal").modal('show'); 
+    }
     
-}
+    
+    
 
 function createRecipeModal(id)
 {
