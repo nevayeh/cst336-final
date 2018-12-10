@@ -151,60 +151,62 @@ if(isset($_GET['tag']))
                     }
                 }
                 
-                //RECIPE MODAL
-                echo '<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">';
-                    echo '<div class="modal-dialog modal-lg" role="document">';
-                        echo '<div class="modal-content">';
-                            echo '<div class="modal-header">';
-                                echo '<h5 class="modal-title" id="recipeModalLabel"></h5>'; //RECIPE NAME GOES IN HERE
-                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                                    echo '<span aria-hidden="true">&times;</span>';
-                                echo '</button>';
-                            echo '</div>';
-                            echo '<div class="modal-body">';
-                                echo '<div style="inline-block" id="recipeImgDiv"></div>'; //RECIPE IMAGE GOES HERE
-                                echo '<div style="inline-block" id="recipeInfoDiv" ></div>'; //RECIPE INFO GOES HERE
-                            echo '</div>';
-                            echo '<div class="modal-footer">';
-                                echo '<button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>';
-                            echo '</div>';
-                        echo '</div>';
-                    echo '</div>';
-                echo '</div> <br/>';
-                
-                //LOG IN MODAL
-                echo '<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">';
-                    echo '<div class="modal-dialog modal-lg" role="document">';
-                        echo '<div class="modal-content">';
-                            echo '<div class="modal-header">';
-                                echo '<h5 class="modal-title" id="logInModalLabel">Log In</h5>'; 
-                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                                    echo '<span aria-hidden="true">&times;</span>';
-                                echo '</button>';
-                            echo '</div>';
-                            echo '<div class="modal-body">';
-                                //Username
-                                echo '<div class="form-group">';
-                                    echo '<label for="formGroupUsernameInput">Username</label>';
-                                    echo '<input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">';
-                                echo '</div>';
-                                //Password
-                                echo '<div class="form-group">';
-                                    echo '<label for="formGroupPasswordInput">Password</label>';
-                                    echo '<input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">';
-                                echo '</div>';
-                                echo '<div id="logInVerification"></div>'; //LOG IN ERROR MESSAGE GOES HERE (if wrong credentials)
-                                echo '<button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>';
-                            echo '</div>';
-                            // echo '<div class="modal-footer">';
-                                // echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
-                            // echo '</div>';
-                        echo '</div>';
-                    echo '</div>';
-                echo '</div> <br/>';
-                
                 ?>
             </div>
+                
+                <!--RECIPE MODAL-->
+                <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="recipeModalLabel"></h5> <!-- RECIPE NAME GOES IN HERE -->
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div style="inline-block" id="recipeImgDiv"></div> <!-- RECIPE IMAGE GOES HERE -->
+                                <div style="inline-block" id="recipeInfoDiv" ></div> <!-- RECIPE INFO GOES HERE -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <br/>
+                
+                <!--LOG IN MODAL-->
+                <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="logInModalLabel">Log In</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!--Username-->
+                                <div class="form-group">
+                                    <label for="formGroupUsernameInput">Username</label>
+                                    <input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">
+                                </div>
+                                <!--Password-->
+                                <div class="form-group">
+                                    <label for="formGroupPasswordInput">Password</label>
+                                    <input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">
+                                </div>
+                                <div id="logInVerification"></div> <!-- LOG IN ERROR MESSAGE GOES HERE (if wrong credentials) -->
+                                <button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>
+                            </div>
+                            <!--<div class="modal-footer">-->
+                                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div> <br/>
+                
+
             
         </main>
         
