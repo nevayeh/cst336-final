@@ -1,9 +1,10 @@
 function createLogInModal()
 {
-    console.log("Somehow Create a Log In Modal Here");
+    // console.log("Somehow Create a Log In Modal Here");
+    console.log("Showing log in modal");
     
     $("#logInModal").modal('show'); 
-    }
+}
     
     
     
@@ -99,46 +100,13 @@ function getRecipeDescription(id, recipe)
                 //Otherwise, it will not output anything
                 .append(recipe.preparationMinutes ? ("Preparation time: " + recipe.preparationMinutes + " minutes") : "")
                 .append(recipe.cookingMinutes ? (recipe.preparationMinutes ? ("<br/>Cooking time: " + recipe.cookingMinutes + " minutes") : ("Cooking time: " + recipe.cookingMinutes + " minutes")) : "")
-                .append(recipe.readyInMinutes ? (recipe.preparationMinutes || recipe.cookingMinutes ? ("<br/>Ready In: " + recipe.readyInMinutes + " minutes") : ("Ready In: " + recipe.readyInMinutes + " minutes")) : "")
+                .append(recipe.readyInMinutes ? (recipe.preparationMinutes || recipe.cookingMinutes ? ("<br/>Ready In: " + recipe.readyInMinutes + " minutes") : ("Ready In: " + recipe.readyInMinutes + " minutes")) : "");
                 
-                
-                /*
-                
-                //---------------------------------------------------------------------------------------------------
-                // This section uses if statements instead of ternary operators
-                // Much longer, just keeping it here in case I decide to use it later
-                // Most likely will delete
-                //---------------------------------------------------------------------------------------------------
-                
-                //If at least one of the times is defined
-                if(recipe.preparationMinutes || recipe.cookingMinutes || recipe.readyInMinutes)
+                if(recipe.instructions)
                 {
-                    $("#recipeInfoDiv").append("<hr class='recipeModalDivider'>");
-                    
-                    //If the respective time is defined, it will output the proper message
-                    //Otherwise, it will not output anything
-                    if(recipe.preparationMinutes)
-                        $("#recipeInfoDiv").append("Preparation time: " + recipe.preparationMinutes + " minutes");
-                    
-                    if(recipe.cookingMinutes)
-                    {
-                        if(recipe.preparationMinutes)
-                            $("#recipeInfoDiv").append("<br/>");
-                        $("#recipeInfoDiv").append("Cooking time: " + recipe.cookingMinutes + " minutes");
-                    }
-                        
-                    if(recipe.readyInMinutes)
-                    {
-                        if(recipe.preparationMinutes || recipe.cookingMinutes)
-                            $("#recipeInfoDiv").append("<br/>");
-                    $("#recipeInfoDiv").append("Ready In: " + recipe.readyInMinutes + " minutes");
-                    }
+                    $("#recipeInfoDiv").append("<hr class='recipeModalDivider'>" + recipe.instructions)
+                        .css("font-size", "18px");
                 }
-                */
-                
-                $("#recipeInfoDiv").append("<hr class='recipeModalDivider'>" + recipe.instructions)
-                
-                .css("font-size", "18px");
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
