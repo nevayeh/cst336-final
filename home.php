@@ -90,7 +90,7 @@ if(isset($_GET['tag']))
             -->
             <br>
     
-            <div id = 'base'>
+            <div id = 'base' <?php if ($tag){?>style="display:block"<?php } ?>>
                 <?php
     
                 if(empty($_GET)) // form was not submitted
