@@ -1,13 +1,23 @@
 <?php
 // connect to our mysql database server
-function getDatabaseConnection() {
-    if (strpos($_SERVER['SERVER_NAME'], "c9users") !== false) {
+function getDatabaseConnection()
+{
+    //Neva's localhost (here for testing)
+    if (strpos($_SERVER['SERVER_NAME'], "nevayeh") !== false) {
+        // running on cloud9
+        $host = "localhost";
+        $username = "nyeh";
+        $password = "Admin"; // best practice: define this in a separte file
+        $dbname = "final"; 
+    } 
+    else if (strpos($_SERVER['SERVER_NAME'], "c9users") !== false) {
         // running on cloud9
         $host = "localhost";
         $username = "jon";
         $password = "cst336"; // best practice: define this in a separte file
         $dbname = "Final"; 
-    } else {
+    } 
+    else {
        //running on Heroku
         $host = "us-cdbr-iron-east-01.cleardb.net";
         $username = "be99cecc0350fe";

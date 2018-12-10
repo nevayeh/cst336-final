@@ -1,8 +1,3 @@
-//MOVED TO MODAL/MODAL.JS
-// function logIn(){
-//     console.log("Somehow Create a Log In Modal Here");
-// }
-
 $("#signInButton").click(function()
 {
     console.log("Js is being called");
@@ -11,7 +6,7 @@ $("#signInButton").click(function()
         url: "api/checklogin.php",
         data: {"username": $("#formGroupUsernameInput").val(),
         "password": $("#formGroupPasswordInput").val()},
-        datatype: "application/json",
+        datatype: "json",
         beforeSend: function() {
             //console.log(username);
             //console.log(password);
@@ -20,14 +15,30 @@ $("#signInButton").click(function()
             // $(".modal-title").html("formGroupPasswordInput");
         },
         success: function(data, status) {
-            //load results to modal
-            //$("#logInModal").html(data[0].name);
-            //$("#formgroup").html(
             console.log('success')
-            console.log('data: ' + data);
+            console.log(data);
+            console.log(typeof data);
+            
+            //INDEXER
+            // console.log("username: " + data['username']);
+            // console.log("user exists: " + data['found']);
+            
+            //DOT
+            console.log("username: " + data.username);
+            console.log("found: " + data.found);
+            
+            
+            if(data == "true")
+            {
+                console.log();
+                $("#logInModal").modal('hide');
+            }
+            
+            
+            
         },
         fail: function(status) {
-            console.log('fail')
+            console.log('fail');
             console.log(data);
             
         }

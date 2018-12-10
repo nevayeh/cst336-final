@@ -6,8 +6,6 @@ function createLogInModal()
     $("#logInModal").modal('show'); 
 }
     
-    
-    
 
 function createRecipeModal(id)
 {

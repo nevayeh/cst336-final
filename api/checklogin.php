@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+// session_start(); 
 
 include '../database.php'; 
 
@@ -9,7 +9,17 @@ $dbConn = getDatabaseConnection();
 $username = $_GET['username'];
 $password = $_GET['password'];
 
-echo json_encode(validate($username, $password));
+echo json_encode(array("username" => $username, "found" => validate($username, $password)));
+
+// $found = validate($username, $password);
+// echo json_encode(array("username" => $username, "found" => $found));
+
+// $results = array(
+//   'username' => $username,
+//   'found' => $found
+// );
+
+// echo json_encode($results);
 
 function validate($username, $password) {
     global $dbConn; 
@@ -28,12 +38,12 @@ function validate($username, $password) {
         // $_SESSION['username'] = $records[0]['username']; 
         // header('Location: home.php');
         //return json_encode(true); 
-        return true; 
+        return json_decode("true"); 
         
     }  else {
         //echo "<div class='error'>Username and password are invalid </div>";
         //return json_encode(false); 
-        return false;
+        return json_decode("false");
     }
 }
 
