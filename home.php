@@ -3,6 +3,10 @@ include './api/spoonacularAPI.php';
 if(isset($_GET['tag']))
 {
     $tag= $_GET['tag'];
+    // $number = $_GET['quantity'];
+}
+if(isset($_GET['quantity'])){
+    $quantity = $_GET['quantity'];
 }
 ?>
 
@@ -63,9 +67,12 @@ if(isset($_GET['tag']))
             <form>
                 <div class = 'inputs'>
                     <input class = 'inputs' type="text" name="tag" placeholder = "e.g. Milk, Chocolate" value="<?=$_GET['tag']?>"/>
+                    <input type="number" name="quantity" min="1" max="5" placeholder=# />
                     <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/>
                 </div>
+                
             </form>
+            
             
             <!--FOOD FACT DIV-->
             <div id="fact">
@@ -101,14 +108,15 @@ if(isset($_GET['tag']))
                 } 
                 else // form was submitted
                 { 
+                    //print_r($quantity);
                     if(!empty($tag))
                     {
                         echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
-                        $recipes = ingredientSearch($_GET['tag'], 5);
+                        $recipes = ingredientSearch($_GET['tag'], $quantity);
                         echo "<br>";
                         //print_r($recipes);
                         
-                        for($i = 0; $i < 5; $i++)
+                        for($i = 0; $i < $quantity; $i++)
                         {
                             
                             /*
@@ -140,6 +148,7 @@ if(isset($_GET['tag']))
                             // Recipe and title will both create the modal for the respective recipe
                             // User cannot click on empty space to side of image/title
                             // ---------------------------------------------------------------------------------------
+                            //print_r($recipes);
                             
                             echo '<div class="recipeResult">';
                             echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:30px;padding:10px 50px;margin-bottom:0px" onclick="createRecipeModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
@@ -212,6 +221,15 @@ if(isset($_GET['tag']))
         
         <script src="modal/modal.js"></script>
         <script src="js/functions.js"></script>
+        <script type="text/javascript">
+            $("#cookTime").on("click", function(){
+               if($(this).is(":checked")){
+                   console.log("CHECKED");
+                   $("#base").html("");
+               }
+            });
+            
+        </script>
 
     </body>    
 </html>
