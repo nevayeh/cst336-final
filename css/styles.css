@@ -52,7 +52,12 @@ img {
 
 #searchButton {
     transform: scale(0.80);
-    
+}
+
+#searchButton:focus
+{
+    border: none;
+    outline: none;
 }
 
 #base {
