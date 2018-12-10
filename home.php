@@ -44,7 +44,8 @@ if(isset($_GET['tag']))
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 
-              <a class="nav-item nav-link" id="logIn" href="#" onclick="createLogInModal()">Log-In</a>
+              <a class="nav-item nav-link" id="logIn" href="#" onclick="createLogInModal()">Log-In</a> <!--when clicked calls the createLogInModal() function-->
+              
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
               <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
             </div>
