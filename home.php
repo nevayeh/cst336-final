@@ -66,6 +66,13 @@ if(isset($_GET['tag']))
                 </div>
             </form>
             
+            <div class="filters">
+                Cook Time<br>
+                20 Minute Recipe<input id="cookTime" type="checkbox" name="cookTime" value=30>
+            </div>
+            
+            
+            
             <!--FOOD FACT DIV-->
             <div id="fact">
                 <!--Food Fact!-->
@@ -139,6 +146,7 @@ if(isset($_GET['tag']))
                             // Recipe and title will both create the modal for the respective recipe
                             // User cannot click on empty space to side of image/title
                             // ---------------------------------------------------------------------------------------
+                            //print_r($recipes);
                             
                             echo '<div class="recipeResult">';
                             echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:30px;padding:10px 50px;margin-bottom:0px" onclick="createRecipeModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
@@ -209,6 +217,15 @@ if(isset($_GET['tag']))
         
         <script src="modal/modal.js"></script>
         <script src="js/functions.js"></script>
+        <script type="text/javascript">
+            $("#cookTime").on("click", function(){
+               if($(this).is(":checked")){
+                   console.log("CHECKED");
+                   $("#base").html("");
+               }
+            });
+            
+        </script>
 
     </body>    
 </html>
