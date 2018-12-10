@@ -34,6 +34,7 @@ if(isset($_GET['tag']))
 
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     </head>
     
     <body>
@@ -91,7 +92,7 @@ if(isset($_GET['tag']))
             -->
             <br>
     
-            <div id = 'base'>
+            <div id = 'base' <?php if ($tag){?>style="display:block"<?php } ?>>
                 <?php
     
                 if(empty($_GET)) // form was not submitted

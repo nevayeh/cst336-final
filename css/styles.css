@@ -52,7 +52,12 @@ img {
 
 #searchButton {
     transform: scale(0.80);
-    
+}
+
+#searchButton:focus
+{
+    border: none;
+    outline: none;
 }
 
 #base {
@@ -62,6 +67,7 @@ img {
     height: 100%;
     margin: auto;
     padding: 20px;
+    display: none;
 }
 
 #fact, #joke
