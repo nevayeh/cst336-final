@@ -18,6 +18,9 @@ if(isset($_GET['tag']))
 if(isset($_GET['quantity'])){
     $quantity = $_GET['quantity'];
 }
+if(isset($_GET['cookTime'])){
+    $cookTime = $_GET['cookTime'];
+}
 
 
 ?>
@@ -84,7 +87,8 @@ if(isset($_GET['quantity'])){
                 <div class = 'inputs'>
                     <input class = 'inputs' type="text" name="tag" placeholder = "e.g. Milk, Chocolate" value="<?=$_GET['tag']?>"/>
                     <input type="number" name="quantity" min="1" max="5" placeholder="#" value="<?php echo isset($_GET['quantity']) ? $_GET['quantity'] : 5 ?>" />
-                    <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/>
+                    <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/><br>
+                    Ready in 30 min or Less<br><input type="checkbox" id="cookTime" name="cookTime" value="30">
                 </div>
                 
             </form>
@@ -115,15 +119,14 @@ if(isset($_GET['quantity'])){
     
             <div id = 'base' <?php if ($tag){?>style="display:block"<?php } ?>>
                 <?php
-    
-                if(empty($_GET)) // form was not submitted
+                    if(empty($_GET)) // form was not submitted
                 { 
                     echo "";
                 } 
                 else // form was submitted
                 { 
                     //print_r($quantity);
-                    if(!empty($tag))
+                    if(!empty($tag) && !isset($_GET['cookTime']))
                     {
                         if($_GET['quantity'] == "")
                             $quantity = 5;
@@ -132,7 +135,6 @@ if(isset($_GET['quantity'])){
                         $recipes = ingredientSearch($_GET['tag'], $quantity);
                         echo "<br>";
                         //print_r($recipes);
-                        
                         for($i = 0; $i < $quantity; $i++)
                         {
                             
@@ -169,8 +171,32 @@ if(isset($_GET['quantity'])){
                             
                         }
                     }
+                    if(!empty($tag) && isset($_GET['cookTime']))
+                    {
+                        if(!empty($tag) && isset($_GET['cookTime']))
+                        {
+                            if($_GET['quantity'] == "")
+                                $quantity = 5;
+                            
+                            echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
+                            $recipes = ingredientSearch($_GET['tag'], $quantity);
+                            echo "<br>";
+                            
+                            for($i = 0; $i < $quantity; $i++)
+                            {
+                                $temp = getInstructions($recipes[$i]['id'])['readyInMinutes'];
+                                
+                                if($temp <= $_GET['cookTime']){
+                                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
+                                    echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
+                                    echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
+                                    echo '</div>';
+                                    echo '<br/><br/>';
+                                }
+                            }
+                        }
+                    }
                 }
-                
                 ?>
             </div>
                 

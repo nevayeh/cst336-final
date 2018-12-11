@@ -121,11 +121,3 @@ function logout()
         }
     });
 }
-
-
-$("#cookTime").on("click", function(){
-   if($(this).is(":checked")){
-       console.log("CHECKED");
-       $("#base").html("");
-   }
-});
