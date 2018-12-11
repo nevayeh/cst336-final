@@ -121,8 +121,7 @@ function logout()
         }
     });
 }
-<<<<<<< HEAD:js/functions.js
-=======
+
 
 $("#saveRecipeButton").click(function()
 {
@@ -136,4 +135,4 @@ $("#cookTime").on("click", function(){
        $("#base").html("");
    }
 });
->>>>>>> 29c3d4ee895dbda5d4526006e9cedca32cbaf8dd:inc/js/functions.js
+

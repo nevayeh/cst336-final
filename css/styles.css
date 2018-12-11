@@ -108,10 +108,34 @@ img {
     height: 20px;
 }
 
-#navbarUnclickable1:hover, #navbarUnclickable2:hover, #navbarUnclickable3:hover
+#navbarUnclickable1:hover, #navbarUnclickable2:hover, #navbarUnclickable3:hover, #navbarUnclickable4:hover
 {
     color: rgba(0,0,0,.5);
     /*color: red;*/
     cursor: default;
 }
 
+#loginInfoDiv
+{
+    color: blue;
+}
+
+#usernameTooltipButton
+{
+    background: transparent;
+    font-size: 30px;
+    text-decoration: none;
+    /*border: none !important;*/
+}
+
+#usernameTooltipButton:focus
+{
+    border: none !important;
+    /*outline: none;*/
+    outline: 0;
+}
+
+#usernameTooltipButton:hover
+{
+    cursor: default;
+}

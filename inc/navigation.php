@@ -3,9 +3,9 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <?php if (!$loggedIn){?>
-                <a class="nav-item nav-link" id="logInButton" href="#" onclick="createLogInModal()">Log In</a>
+                <a class="nav-item nav-link" id="logInButton" onclick="createLogInModal()">Log In</a>
                 <?php } else {?>
-                <a class="nav-item nav-link" id="logOutButton" href="#" onclick="logout()">Log Out</a>
+                <a class="nav-item nav-link" id="logOutButton" onclick="logout()">Log Out</a>
                 <?php } ?>
             </li>
         </ul>
@@ -20,15 +20,25 @@
             <li class="nav-item">
                 <a class="nav-link" id="navbarUnclickable2">|</a>
             </li>
+            
             <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="index.php">Home</a>
             </li>
             <!-- Separator -->
             <li class="nav-item">
                 <a class="nav-link" id="navbarUnclickable3">|</a>
             </li>
+            
             <li class="nav-item">
-                <a class="nav-link" href="#">Your Recipes</a>
+                <a class="nav-link" href="">Profile</a>
+            </li>
+            <!-- Separator -->
+            <li class="nav-item">
+                <a class="nav-link" id="navbarUnclickable4">|</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="recipes.php">Your Recipes</a>
             </li>
         </ul>
     </div>

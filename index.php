@@ -147,28 +147,26 @@ if(isset($_GET['cookTime'])){
                         }
                     }if(!empty($tag) && isset($_GET['cookTime']))
                     {
-                        if(!empty($tag) && isset($_GET['cookTime']))
+                        if($_GET['quantity'] == "")
+                            $quantity = 5;
+                        
+                        echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
+                        $recipes = ingredientSearch($_GET['tag'], $quantity);
+                        echo "<br>";
+                        
+                        for($i = 0; $i < $quantity; $i++)
                         {
-                            if($_GET['quantity'] == "")
-                                $quantity = 5;
+                            $temp = getInstructions($recipes[$i]['id'])['readyInMinutes'];
                             
-                            echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
-                            $recipes = ingredientSearch($_GET['tag'], $quantity);
-                            echo "<br>";
-                            
-                            for($i = 0; $i < $quantity; $i++)
-                            {
-                                $temp = getInstructions($recipes[$i]['id'])['readyInMinutes'];
-                                
-                                if($temp <= $_GET['cookTime']){
-                                    echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
-                                    echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
-                                    echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
-                                    echo '</div>';
-                                    echo '<br/><br/>';
-                                }
+                            if($temp <= $_GET['cookTime']){
+                                echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
+                                echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
+                                echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
+                                echo '</div>';
+                                echo '<br/><br/>';
                             }
                         }
+                        
                     }
                 }
                 
