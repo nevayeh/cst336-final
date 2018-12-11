@@ -1,18 +1,23 @@
-function createLogInModal()
+function createLogInModal(text)
 {
-    // console.log("Somehow Create a Log In Modal Here");
-    console.log("Showing log in modal");
-    
-    $("#logInModal").modal('show'); 
+    console.log("showing login modal");
+    $("#logInModal").modal('show');
 }
+
+//Clears modal after closing
+//(If they type stuff in and then close it withouto logging in)
+$('#logInModal').on('hidden.bs.modal', function()
+{
+  $(this)
+    .find("input,textarea,select")
+       .val('')
+});
     
 
 function createRecipeModal(id)
 {
-    console.log("creating modal. id: " + id);
-    
     $("#recipeModal").modal('show');
-    $("#recipeModalLabel").html(""); //prevents both loading and recipe info showing (after clicking on another recipe)
+    $("#recipeModalLabel").html("");
     $("#recipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
     $("#recipeInfoDiv").html("");
     
@@ -24,9 +29,6 @@ function createRecipeModal(id)
         data: {"id": id} ,
         success: function(data, status)
         {
-            // console.log("SUCCESS INSTRUCTIONS");
-            // console.log(data);
-            
             var recipeInformation =
             {
                 cookingMinutes: data.cookingMinutes,
@@ -66,15 +68,7 @@ function getRecipeDescription(id, recipe)
         data: {"id": id} ,
         success: function(data, status)
         {
-            // console.log("SUCCESS");
-            // console.log(data);
-
-            //Sets modal title to recipe name
             $("#recipeModalLabel").html(recipe.title);
-            
-            //Sets (or clears) the image in the modal
-            //Use one or the other: 
-            // $("#recipeImgDiv").html(""); //clears loading.gif
             $("#recipeImgDiv").html("<img style='width:400px;height:250px' src='" + recipe.image + "' alt='" + recipe.title + "'/>");
             
             //Fills modal body with recipe info

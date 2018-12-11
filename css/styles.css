@@ -70,7 +70,7 @@ img {
     display: none;
 }
 
-#fact, #joke
+#fact
 {
     color: #565656;
     font-size: 20px;
@@ -99,3 +99,9 @@ img {
     width: 20px;
     height: 20px;
 }
+
+#loggedInAs:hover
+{
+    color: rgba(0,0,0,.5);
+}
+

@@ -1,13 +1,25 @@
 <?php
+
+session_start();
+
 include './api/spoonacularAPI.php';
+
+if(isset($_SESSION['user']))
+{
+    $loggedIn = true;
+}
+
 if(isset($_GET['tag']))
 {
     $tag= $_GET['tag'];
     // $number = $_GET['quantity'];
 }
+
 if(isset($_GET['quantity'])){
     $quantity = $_GET['quantity'];
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -15,14 +27,6 @@ if(isset($_GET['quantity'])){
     <head>
         <title>Recipe Finder</title>
 
-        <!-- 
-            THIS IS STYLE SHEET FOR BOOTSTRAP 3
-            THE MODAL USES BOOTSTRAP 4, but won't work with 3 still enabled
-            So I'll leave this here in case we need it for something
-             
-            <link href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel = "stylesheet">
-        -->
-        
         <!--
             !!!!!! IMPORTANT !!!!!
             PLEASE DON'T CHANGE THE ORDER OF THESE STYLE AND SCRIPT TAGS
@@ -42,19 +46,31 @@ if(isset($_GET['quantity'])){
     </head>
     
     <body>
+        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                
-              <a class="nav-item nav-link" id="logIn" href="#" onclick="createLogInModal()">Log-In</a> <!--when clicked calls the createLogInModal() function-->
-              
-              <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
-              <!--<a class="nav-item nav-link" href="#">TEXT GOES HERE</a>-->
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <?php if (!$loggedIn){?>
+                        <a class="nav-item nav-link" id="logInButton" href="#" onclick="createLogInModal()">Log In</a>
+                        <?php } else {?>
+                        <a class="nav-item nav-link" id="logOutButton" href="#" onclick="logout()">Log Out</a>
+                        <?php } ?>
+                    </li>
+                </ul>
             </div>
-          </div>
+             <?php if ($loggedIn){?>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <span class="nav-link" id="loggedInAs">Logged in as <?php echo $_SESSION['user'] ?> | </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <?php } ?>
         </nav>
         
         <br>
@@ -67,7 +83,7 @@ if(isset($_GET['quantity'])){
             <form>
                 <div class = 'inputs'>
                     <input class = 'inputs' type="text" name="tag" placeholder = "e.g. Milk, Chocolate" value="<?=$_GET['tag']?>"/>
-                    <input type="number" name="quantity" min="1" max="5" placeholder=# />
+                    <input type="number" name="quantity" min="1" max="5" placeholder="#" value="<?php echo isset($_GET['quantity']) ? $_GET['quantity'] : 5 ?>" />
                     <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/>
                 </div>
                 
@@ -76,27 +92,25 @@ if(isset($_GET['quantity'])){
             
             <!--FOOD FACT DIV-->
             <div id="fact">
-                <!--Food Fact!-->
                 Did you know?
                 <div id = 'factText'>
                 <?php 
-                    $foodFact = foodFact();
-                    echo $foodFact['text'];
+                    //Keeps fact the same after refreshing page (refreshing navbar change after logging in or out)
+                    if(isset($_SESSION['fact']))
+                    {
+                        $factOnly = $_SESSION['fact'];
+                        echo substr($factOnly, 11);
+                        unset($_SESSION['fact']);
+                    }
+                    else
+                    {
+                        $foodFact = foodFact();
+                        echo $foodFact['text'];
+                    }
                 ?>
                 </div>
             </div>
             
-            
-            <!--FOOD JOKE DIV
-            <div id="joke">
-                The Lols
-                <br/>
-                <?php 
-                    $joke = foodJoke();
-                    echo $joke['text'];
-                ?>
-            </div>
-            -->
             <br>
     
             <div id = 'base' <?php if ($tag){?>style="display:block"<?php } ?>>
@@ -111,6 +125,9 @@ if(isset($_GET['quantity'])){
                     //print_r($quantity);
                     if(!empty($tag))
                     {
+                        if($_GET['quantity'] == "")
+                            $quantity = 5;
+                        
                         echo "<h2 style= 'margin: 0'> Results for ". $_GET['tag']. "</h2>";
                         $recipes = ingredientSearch($_GET['tag'], $quantity);
                         echo "<br>";
@@ -119,7 +136,6 @@ if(isset($_GET['quantity'])){
                         for($i = 0; $i < $quantity; $i++)
                         {
                             
-                            /*
                             
                             //---------------------------------------------------------------------------------------
                             // ! ! ! Do not use this if code block below is used ! ! !
@@ -129,32 +145,27 @@ if(isset($_GET['quantity'])){
                             // ---------------------------------------------------------------------------------------
                             
                             echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
-                            echo "<p style='color:white'>" . $recipes[$i]['title'] . "</p>";
-                            // echo getInstructions($recipes[$i]['id'])['instructions']; //recipe instructions
-                            // $description = descriptionSearch($recipes[$i]['id']);
-                            // echo descriptionSearch($recipes[$i]['id'])['summary'];
-                            // echo $description['summary'];
-                            echo "<br>";
-        
-                            echo "<img src='" . $recipes[$i]['image'] ."'>";
+                            echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
+                            echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
                             echo '</div>';
                             echo '<br/><br/>';
                             
-                            */
-    
+                            
+                            /*
                             // ---------------------------------------------------------------------------------------
                             // ! ! ! Do not use this if code block above is used ! ! !
-                            //
+                            //                            
                             // Recipe and title will both create the modal for the respective recipe
                             // User cannot click on empty space to side of image/title
                             // ---------------------------------------------------------------------------------------
-                            //print_r($recipes);
                             
                             echo '<div class="recipeResult">';
                             echo '<label id="' . $recipes[$i]['id'] . '" style="color:white;font-size:30px;padding:10px 50px;margin-bottom:0px" onclick="createRecipeModal(this.id)">' . $recipes[$i]['title'] . '</label><br/>';
-                            echo '<img id="' . $recipes[$i]['id'] . '" src="' . $recipes[$i]['image'] .'" onclick="createRecipeModal(this.id)">';
+                            echo '<img class="resultImage" id="' . $recipes[$i]['id'] . '" style="width:500px;height:344px" src="' . $recipes[$i]['image'] .'" onclick="createRecipeModal(this.id)">';
                             echo '</div>';
                             echo '<br/>';
+                            */
+                            
                             
                         }
                     }
@@ -208,28 +219,14 @@ if(isset($_GET['quantity'])){
                                 <div id="logInVerification"></div> <!-- LOG IN ERROR MESSAGE GOES HERE (if wrong credentials) -->
                                 <button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>
                             </div>
-                            <!--<div class="modal-footer">-->
-                                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                            <!--</div>-->
                         </div>
                     </div>
                 </div> <br/>
-                
-
             
         </main>
         
-        <script src="modal/modal.js"></script>
         <script src="js/functions.js"></script>
-        <script type="text/javascript">
-            $("#cookTime").on("click", function(){
-               if($(this).is(":checked")){
-                   console.log("CHECKED");
-                   $("#base").html("");
-               }
-            });
-            
-        </script>
-
+        <script src="modal/modal.js"></script>
+        
     </body>    
 </html>
