@@ -4,8 +4,11 @@ $("#signInButton").click(function()
     $.ajax({
         type: "get",
         url: "api/checklogin.php",
-        data: {"username": $("#formGroupUsernameInput").val(),
-        "password": $("#formGroupPasswordInput").val()},
+        data:{
+            "username": $("#formGroupUsernameInput").val(),
+            "password": $("#formGroupPasswordInput").val()
+            
+        },
         datatype: "json",
         beforeSend: function() {
             //console.log(username);
@@ -18,6 +21,10 @@ $("#signInButton").click(function()
             console.log('success')
             console.log(data);
             console.log(typeof data);
+            //json_encode(data);
+            
+            var jsonData = jQuery.parseJSON(data);
+            console.log(jsonData.found);
             
             //INDEXER
             // console.log("username: " + data['username']);

@@ -3,12 +3,12 @@
 function getDatabaseConnection()
 {
     //Neva's localhost (here for testing)
-    if (strpos($_SERVER['SERVER_NAME'], "nevayeh") !== false) {
+    if (strpos($_SERVER['SERVER_NAME'], "galcaraz") !== false) {
         // running on cloud9
         $host = "localhost";
-        $username = "nyeh";
-        $password = "Admin"; // best practice: define this in a separte file
-        $dbname = "final"; 
+        $username = "Jerry";
+        $password = "BabaBooey1"; // best practice: define this in a separte file
+        $dbname = "finalBase"; 
     } 
     else if (strpos($_SERVER['SERVER_NAME'], "c9users") !== false) {
         // running on cloud9
