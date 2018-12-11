@@ -84,7 +84,7 @@ img {
     border: 1px dashed gray;
 }
 
-#doneButton, #saveRecipeButton
+#doneButton, #saveRecipeButton, #saveChangesButton, #closeButton, #deleteRecipeButton
 {
     padding: 10px 50px;
     display: none;
@@ -112,6 +112,11 @@ img {
 {
     color: rgba(0,0,0,.5);
     /*color: red;*/
+    cursor: default;
+}
+
+#logInButton:hover, #logOutButton:hover
+{
     cursor: default;
 }
 

@@ -2,7 +2,7 @@
 
 session_start();
 
-include './api/spoonacularAPI.php';
+include_once './api/spoonacularAPI.php';
 
 if(isset($_SESSION['user']))
 {
@@ -44,84 +44,33 @@ if(isset($_SESSION['user']))
         
         <main>
             
-            
+            <h3>This page is a work in progress</h3>
             <button onclick="createEditRecipeModal(977701)">TEST</button>
 
 
-        
             <!--RECIPE MODAL-->
             <div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editRecipeModalLabel"></h5> <!-- RECIPE NAME GOES IN HERE -->
+                            <h5 class="modal-title" id="editRecipeModalLabel"></h5> <!-- RECIPE NAME TO EDIT GOES IN HERE -->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div style="inline-block" id="editRecipeImgDiv"></div> <!-- RECIPE IMAGE GOES HERE -->
-                            <div style="inline-block" id="editRecipeInfoDiv" ></div> <!-- RECIPE INFO GOES HERE -->
+                            <div style="inline-block" id="editRecipeImgDiv"></div> <!-- RECIPE IMAGE TO EDIT GOES HERE -->
+                            <div style="inline-block" id="editRecipeInfoDiv" ></div> <!-- RECIPE INFO TO EDIT GOES HERE -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveRecipeButton">Save Recipe</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteRecipeButton">Delete Recipe</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChangesButton">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                         </div>
                     </div>
                 </div>
             </div> <br/>
             
-            
-            
-            <!--RECIPE MODAL-->
-            <!--<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">-->
-            <!--    <div class="modal-dialog modal-lg" role="document">-->
-            <!--        <div class="modal-content">-->
-            <!--            <div class="modal-header">-->
-            <!--                <h5 class="modal-title" id="recipeModalLabel"></h5> <!-- RECIPE NAME GOES IN HERE -->
-            <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-            <!--                    <span aria-hidden="true">&times;</span>-->
-            <!--                </button>-->
-            <!--            </div>-->
-            <!--            <div class="modal-body">-->
-            <!--                <div style="inline-block" id="recipeImgDiv"></div> <!-- RECIPE IMAGE GOES HERE -->
-            <!--                <div style="inline-block" id="recipeInfoDiv" ></div> <!-- RECIPE INFO GOES HERE -->
-            <!--            </div>-->
-            <!--            <div class="modal-footer">-->
-            <!--                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveRecipeButton">Save Recipe</button>-->
-            <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div> <br/>-->
-            
-            <!--LOG IN MODAL-->
-            <!--<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">-->
-            <!--    <div class="modal-dialog modal-lg" role="document">-->
-            <!--        <div class="modal-content">-->
-            <!--            <div class="modal-header">-->
-            <!--                <h5 class="modal-title" id="logInModalLabel">Log In</h5>-->
-            <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-            <!--                    <span aria-hidden="true">&times;</span>-->
-            <!--                </button>-->
-            <!--            </div>-->
-            <!--            <div class="modal-body">-->
-                            <!--Username-->
-            <!--                <div class="form-group">-->
-            <!--                    <label for="formGroupUsernameInput">Username</label>-->
-            <!--                    <input type="text" class="form-control" id="formGroupUsernameInput" placeholder="Username">-->
-            <!--                </div>-->
-                            <!--Password-->
-            <!--                <div class="form-group">-->
-            <!--                    <label for="formGroupPasswordInput">Password</label>-->
-            <!--                    <input type="password" class="form-control" id="formGroupPasswordInput" placeholder="Password">-->
-            <!--                </div>-->
-            <!--                <div id="logInVerification"></div> <!-- LOG IN ERROR MESSAGE GOES HERE (if wrong credentials) -->
-            <!--                <button type="button" class="btn btn-success" style="padding:10px 50px" id="signInButton">Sign In</button>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div> <br/>-->
             
         </main>
         

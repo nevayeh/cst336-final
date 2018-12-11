@@ -2,7 +2,7 @@
 
 session_start();
 
-include './api/spoonacularAPI.php';
+include_once './api/spoonacularAPI.php';
 
 if(isset($_SESSION['user']))
 {
@@ -75,8 +75,9 @@ if(isset($_GET['cookTime'])){
                     //Keeps fact the same after refreshing page (refreshing navbar change after logging in or out)
                     if(isset($_SESSION['fact']))
                     {
-                        $factOnly = $_SESSION['fact'];
-                        echo substr($factOnly, 11);
+                        // $factOnly = $_SESSION['fact'];
+                        // echo substr($factOnly, 11);
+                        echo $_SESSION['fact'];
                         unset($_SESSION['fact']);
                     }
                     else

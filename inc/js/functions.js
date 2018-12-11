@@ -7,7 +7,7 @@ $("#signInButton").click(function()
     
     $.ajax({
         type: "get",
-        url: "api/checklogin.php",
+        url: "inc/ajax/checklogin.php",
         data:{
             "username": $("#formGroupUsernameInput").val(),
             "password": $("#formGroupPasswordInput").val(),
@@ -68,7 +68,7 @@ function login(username, fact)
     $.ajax(
     {
         type: "get",
-        url: "api/loginUser.php",
+        url: "inc/ajax/loginUser.php",
         dataType: "json",
         data: {"username" : username, "fact": fact},
         success: function(data, status)
@@ -100,13 +100,28 @@ function logout()
     $.ajax(
     {
         type: "get",
-        url: "api/logoutUser.php",
+        url: "inc/ajax/logoutUser.php",
         dataType: "json",
         data: {"fact" : keepFact}, //stores fact into session
         success: function(data, status)
         {
             console.log("data from logoutUser.php: " + data); 
-            location.reload(); //refreshes page to reload nav bar text
+            
+            //If already on index.php, will reload page
+            if($(location).attr('href').search("index.php") > -1) 
+            {
+                location.reload(); //refreshes page to reload nav bar text
+            }
+            else
+            {
+                window.location = "index.php";
+                
+                // Since the other pages don't have a food fact div, nothing was passed into "keepFact"
+                // ^ This causes the Food Fact div to be empty after logging out
+                // This gets a new food fact and stores it in $_SESSION (pseudo keepFact)
+                getNewFoodFact();
+                
+            }
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -122,10 +137,40 @@ function logout()
     });
 }
 
+function getNewFoodFact()
+{
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/getNewFoodFact.php",
+        dataType: "json",
+        data: {}, //stores fact into session
+        success: function(data, status)
+        {
+            console.log("data from getNewFoodFact.php: " + data); 
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            //alert(status);
+        },  
+        error: function(data, status)
+        {
+            alert("error food fact");   
+            console.log("ERROR food fact");
+            console.log(data);
+        }
+    });
+}
+
+
+
+
 
 $("#saveRecipeButton").click(function()
 {
-    window.location("recipes.php");
+    alert("saving recipe (WIP)");
+    // window.location("recipes.php");
 });
 
 

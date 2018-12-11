@@ -27,7 +27,7 @@ function createRecipeModal(id)
     $.ajax(
     {
         type: "get",
-        url: "api/getRecipeInstructions.php",
+        url: "inc/ajax/getRecipeInstructions.php",
         dataType: "json",
         data: {"id": id} ,
         success: function(data, status)
@@ -66,7 +66,7 @@ function getRecipeDescription(id, recipe)
     $.ajax(
     {
         type: "get",
-        url: "api/getRecipeInfo.php",
+        url: "inc/ajax/getRecipeInfo.php",
         dataType: "json",
         data: {"id": id} ,
         success: function(data, status)
@@ -124,35 +124,30 @@ function getRecipeDescription(id, recipe)
 
 function createEditRecipeModal(id)
 {
-    $("#recipeModal").modal('show');
-    $("#recipeModalLabel").html("");
-    $("#recipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
-    $("#recipeInfoDiv").html("");
-    $("#saveRecipeButton").css("display", "none");
-    $("#doneButton").css("display", "none");
+    $("#editRecipeModal").modal('show');
+    $("#editRecipeModalLabel").html("");
+    $("#editRecipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
+    $("#editRecipeInfoDiv").html("");
+    $("#deleteRecipeButton").css("display", "none");
+    $("#saveChangesButton").css("display", "none");
+    $("#closeButton").css("display", "none");
     
     $.ajax(
     {
         type: "get",
-        url: "api/getRecipeInstructions.php",
+        url: "inc/ajax/getRecipeFromDB.php",
         dataType: "json",
-        data: {"id": id} ,
+        // data: {"id": id} ,
+        data: {},
         success: function(data, status)
         {
-            var recipeInformation =
-            {
-                cookingMinutes: data.cookingMinutes,
-                image: data.image,
-                instructions: data.instructions,
-                preparationMinutes: data.preparationMinutes,
-                readyInMinutes: data.readyInMinutes,
-                servings: data.servings,
-                title: data.title,
-                vegan: data.vegan,
-                vegetarian: data.vegetarian
-            }
-            
-            getRecipeDescription(id, recipeInformation);
+            $("#editRecipeImgDiv").html('');
+
+            $("#editRecipeInfoDiv").html(data);
+
+            $("#deleteRecipeButton").css("display", "block");
+            $("#saveChangesButton").css("display", "block");
+            $("#closeButton").css("display", "block");
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -161,8 +156,8 @@ function createEditRecipeModal(id)
         },  
         error: function(data, status)
         {
-            alert("error instructions");   
-            console.log("ERROR instructions");
+            alert("error edit recipe");   
+            console.log("ERROR edit recipe");
             console.log(data);
         }
     });
