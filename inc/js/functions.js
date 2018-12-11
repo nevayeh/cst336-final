@@ -122,6 +122,11 @@ function logout()
     });
 }
 
+$("#saveRecipeButton").click(function()
+{
+    window.location("recipes.php");
+});
+
 
 $("#cookTime").on("click", function(){
    if($(this).is(":checked")){

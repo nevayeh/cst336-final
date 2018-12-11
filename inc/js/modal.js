@@ -8,9 +8,10 @@ function createLogInModal(text)
 //(If they type stuff in and then close it withouto logging in)
 $('#logInModal').on('hidden.bs.modal', function()
 {
-  $(this)
-    .find("input,textarea,select")
-       .val('')
+    $(this)
+        .find("input,textarea,select")
+            .val('')
+    $("#logInVerification").html("");
 });
     
 
@@ -20,6 +21,8 @@ function createRecipeModal(id)
     $("#recipeModalLabel").html("");
     $("#recipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
     $("#recipeInfoDiv").html("");
+    $("#saveRecipeButton").css("display", "none");
+    $("#doneButton").css("display", "none");
     
     $.ajax(
     {
@@ -99,6 +102,9 @@ function getRecipeDescription(id, recipe)
                     $("#recipeInfoDiv").append("<hr class='recipeModalDivider'>" + recipe.instructions)
                         .css("font-size", "18px");
                 }
+                
+                $("#saveRecipeButton").css("display", "block");
+                $("#doneButton").css("display", "block");
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
