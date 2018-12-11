@@ -8,4 +8,3 @@ $_SESSION['fact'] = $_GET['fact'];
 echo json_encode("logged out");
 
 ?>
-

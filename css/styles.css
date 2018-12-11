@@ -84,11 +84,19 @@ img {
     border: 1px dashed gray;
 }
 
-#doneButton
+#doneButton, #saveRecipeButton
 {
     padding: 10px 50px;
+    display: none;
 }
 
+#saveRecipeButton
+{
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
 
 #factText {
     font-size: 18px;
@@ -100,8 +108,10 @@ img {
     height: 20px;
 }
 
-#loggedInAs:hover
+#navbarUnclickable1:hover, #navbarUnclickable2:hover, #navbarUnclickable3:hover
 {
     color: rgba(0,0,0,.5);
+    /*color: red;*/
+    cursor: default;
 }
 

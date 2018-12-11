@@ -121,3 +121,19 @@ function logout()
         }
     });
 }
+<<<<<<< HEAD:js/functions.js
+=======
+
+$("#saveRecipeButton").click(function()
+{
+    window.location("recipes.php");
+});
+
+
+$("#cookTime").on("click", function(){
+   if($(this).is(":checked")){
+       console.log("CHECKED");
+       $("#base").html("");
+   }
+});
+>>>>>>> 29c3d4ee895dbda5d4526006e9cedca32cbaf8dd:inc/js/functions.js
