@@ -113,7 +113,7 @@ function getRecipeDescription(id, recipe)
         },  
         error: function(data, status)
         {
-            alert("error");   
+            alert("error description");   
             console.log(data);
             console.log(status);
         }

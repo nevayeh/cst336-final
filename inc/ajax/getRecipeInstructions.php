@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require '../../api/vendor/autoload.php';
 
 echo json_encode(getInstructions($_GET['id']));
 

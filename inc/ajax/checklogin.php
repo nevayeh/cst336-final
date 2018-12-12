@@ -14,7 +14,7 @@ function validate($username, $password) {
     global $dbConn; 
     $dbConn = getDatabaseConnection(); 
     
-    $sql = "SELECT * FROM `users_final` WHERE username=:username AND password=:password"; 
+    $sql = "SELECT * FROM `final_users` WHERE username=:username AND password=:password"; 
     $statement = $dbConn->prepare($sql); 
     $statement->execute(array(':username' => $username, ':password' => $password));
 

@@ -167,11 +167,98 @@ function getNewFoodFact()
 
 
 
-$("#saveRecipeButton").click(function()
+function saveRecipe(username)
 {
-    alert("saving recipe (WIP)");
-    // window.location("recipes.php");
-});
+    // alert("saving recipe (WIP)");
+    
+    console.log("saving recipe, going to go into getUserFromDB.php");
+    console.log("username given: " + username);
+    console.log(typeof username);
+    
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/getUserIDFromDB.php",
+        dataType: "json",
+        data: {"user": username}, 
+        success: function(data, status)
+        {
+            // console.log(data);
+            // console.log(typeof data);
+            
+            // console.log(data[0].userid);
+            
+            var userid = data[0].userid;
+            var recipeName = $("#recipeModalLabel").text();
+            var recipeImgURL = $('#recipeImgDiv img').attr('src');
+            var recipeDescription = $("#recipeInfoDiv").text();
+            
+            
+            // console.log(userid);
+            // console.log(recipeName);
+            // console.log(recipeImgURL);
+            // console.log(recipeDescription);
+           
+            insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription); 
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            //alert(status);
+        },  
+        error: function(data, status)
+        {
+            alert("error saving recipe");   
+            console.log("ERROR saving recipe");
+            console.log(data);
+        }
+    });
+    
+    
+    
+    
+    
+    // $("#recipeModal").modal('hide');
+    
+}    
+    
+    
+function insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription)
+{
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/insertRecipeIntoDB.php",
+        dataType: "json",
+        data: {"id": userid, "name": recipeName, "img": recipeImgURL, "desc": recipeDescription}, 
+        success: function(data, status)
+        {
+            
+            
+            // console.log(userid);
+            // console.log(recipeName);
+            // console.log(recipeImgURL);
+            // console.log(recipeDescription);
+           
+            // insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription); 
+            
+            console.log("inserted into db");
+            console.log("succes message: " + data);
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            //alert(status);
+        },  
+        error: function(data, status)
+        {
+            // alert("error insert into db");   
+            // console.log("ERROR inserting into db");
+            // console.log(data.responseText);
+        }
+    });
+}
+
 
 
 $("#cookTime").on("click", function(){
@@ -180,4 +267,5 @@ $("#cookTime").on("click", function(){
        $("#base").html("");
    }
 });
+
 

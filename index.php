@@ -189,7 +189,7 @@ if(isset($_GET['cookTime'])){
                                 <div style="inline-block" id="recipeInfoDiv" ></div> <!-- RECIPE INFO GOES HERE -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveRecipeButton">Save Recipe</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveRecipeButton" onclick="saveRecipe('<?php echo $_SESSION['user'] ?>')">Save Recipe</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>
                             </div>
                         </div>
