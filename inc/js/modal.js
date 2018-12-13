@@ -134,28 +134,49 @@ function getRecipeDescription(id, recipe, loggedIn)
 }
 
 
-function createEditRecipeModal(name)
+function createEditRecipeModal(recipeid)
 {
+    var loggedUser = $("#hiddenUserID").val();
+    // console.log("logged: " + loggedUser)
+    
+    console.log("userid: " + loggedUser);
+    console.log("recipeid: " + recipeid);
+    
+    $("#hiddenRecipeID").val(""); //Resets hidden recipe id
+    
     $("#editRecipeModal").modal('show');
-    $("#editRecipeModalLabel").html(name);
+    $("#editRecipeModalLabel").html("");
     $("#editRecipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
     $("#editRecipeInfoDiv").html("");
     $("#deleteRecipeButton").css("display", "none");
     $("#saveChangesButton").css("display", "none");
+    $("#changesSavedButton").css("display", "none");
     $("#closeButton").css("display", "none");
     
     $.ajax(
     {
         type: "get",
-        url: "inc/ajax/getRecipeFromDB.php",
+        url: "inc/ajax/database/getRecipeFromDB.php",
         dataType: "json",
-        // data: {"id": id} ,
-        data: {},
+        data: {"userid": loggedUser, "recipeid": recipeid},
         success: function(data, status)
         {
-            $("#editRecipeImgDiv").html('');
+            
+            console.log("RETURNED WITH SPECIFIC RECIPE FROM DB")
+            console.log(data);
+            
+            // console.log("trying to get imgurl: " + data[0].imageURL)
+            
+            $("#hiddenRecipeID").val(data[0].recipeid);
+            
+            $("#editRecipeModalLabel").html(data[0].name)
+                .attr("contenteditable", "true");
+            
+            $("#editRecipeImgDiv").html('<img style="width:400px;height:250px" src="' + data[0].imageURL + '" alt="' + data[0].name + '">');
 
-            $("#editRecipeInfoDiv").html(data);
+            // $("#editRecipeInfoDiv").html("<textarea id='recipeNewDescription'>" + data[0].description + "</textarea>");
+            $("#editRecipeInfoDiv").html(data[0].description)
+                .attr("contenteditable", "true");
 
             $("#deleteRecipeButton").css("display", "block");
             $("#saveChangesButton").css("display", "block");

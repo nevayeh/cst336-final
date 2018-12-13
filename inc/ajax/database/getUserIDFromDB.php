@@ -1,8 +1,6 @@
 <?php
 
-include_once '../../database.php';
-
-// $dbConn = getDatabaseConnection(); 
+include_once '../../../database.php';
 
 echo json_encode(getUser($_GET['user']));
 

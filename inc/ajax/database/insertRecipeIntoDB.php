@@ -1,16 +1,8 @@
 <?php
 
-include_once '../../database.php';
+include_once '../../../database.php';
 
-$dbConn = getDatabaseConnection(); 
-    
-$id = $_GET['id'];
-$recipeId = $_GET['recipeId'];
-$name = $_GET['name'];
-$url = $_GET['img'];
-$desc = $_GET['desc'];
-
-echo json_encode(checkDupe($id, $recipeId, $name, $url, $desc));
+echo json_encode(checkDupe($_GET['id'], $_GET['recipeId'], $_GET['name'], $_GET['img'], $_GET['desc']));
 
 function checkDupe($id, $recipeId, $name, $url, $desc)
 {

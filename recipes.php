@@ -1,11 +1,18 @@
 <?php
 session_start();
+
 include 'database.php';
 include_once './api/spoonacularAPI.php';
+
 if(isset($_SESSION['user']))
-{$loggedIn = true;}
-$name = $_SESSION['user'];
+{
+    $loggedIn = true;
+    $name = $_SESSION['user'];
+    
+}
+
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,8 +37,7 @@ $name = $_SESSION['user'];
         <main>
             <?php include_once "inc/navigation.php";?>
 
-
-            <!--RECIPE MODAL-->
+            <!--EDIT RECIPE MODAL-->
             <div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -46,20 +52,54 @@ $name = $_SESSION['user'];
                             <div style="inline-block" id="editRecipeInfoDiv" ></div> <!-- RECIPE INFO TO EDIT GOES HERE -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteRecipeButton">Delete Recipe</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChangesButton">Save Changes</button>
+                            <!--<button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteRecipeButton">Delete Recipe</button>-->
+                            <button type="button" class="btn btn-danger" id="deleteRecipeButton">Delete Recipe</button>
+                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+                            <button type="button" class="btn btn-success" id="changesSavedButton">Changes saved!</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                         </div>
                     </div>
                 </div>
-            </div> <br/>
+            </div> 
             
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">Are you sure?</h5> 
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="noButton">No, keep!</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="yesButton">Yes, delete!</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteRecipeButton">Delete Recipe</button>
+                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+            
+        <?php
+            echo "<input type='hidden' id='hiddenUserID' value='" . getUserID() . "'>";
+            echo "<input type='hidden' id='hiddenRecipeID' value=''>";
+            // echo "<h1>" . getUserID() . "</h1>";
+        ?>
             
         </main>
         
         <script src="inc/js/functions.js"></script>
         <script src="inc/js/modal.js"></script>
-        <h1><?php echo $name ?>'s Recipes</h1>
+        <!--<h1><?php echo $name ?>'s Recipes</h1>-->
+        <br/>
+        <h1>Your Recipes</h1>
+        <h2>Click on any image to be able to edit it.<br/>
+        Once the window opens, you can click on the title and/or the information and change it.</h2>
 
         <?php
             function getUserID(){
@@ -76,7 +116,8 @@ $name = $_SESSION['user'];
             function getUserData(){
                 $userID = getUserID();
                 $dbConn = getDatabaseConnection();
-                $sql = "SELECT final_user_recipes.userid, final_user_recipes.name, final_user_recipes.imageURL, final_user_recipes.description
+                // $sql = "SELECT final_user_recipes.userid, final_user_recipes.name, final_user_recipes.imageURL, final_user_recipes.description
+                $sql = "SELECT * 
                         FROM final_user_recipes
                         INNER JOIN final_users
                         ON final_user_recipes.userid=final_users.userid
@@ -111,7 +152,8 @@ $name = $_SESSION['user'];
                     //     echo "</tr>";
                     // echo "</table>";
                     //$temp = $recipe['name'];
-                    echo '<div class="recipeResult" id="' . $recipe['name'] . '" onclick="createEditRecipeModal(this.id)">';
+                    // echo '<div class="recipeResult" id="' . $recipe['name'] . '" onclick="createEditRecipeModal(this.id)">';
+                    echo '<div class="recipeResult" id="' . $recipe['recipeid'] . '" onclick="createEditRecipeModal(this.id)">';
                             echo "<p style='color:white;margin-bottom: 20px'>" . $recipe['name'] . "</p>";
                             echo "<img style='width:500px;height:344px' src='" . $recipe['imageURL'] ."'>";
                             echo '</div>';

@@ -105,15 +105,20 @@ img {
 }
 
 /* Modal buttons */
-#doneButton, #saveRecipeButton, #saveChangesButton, #closeButton, #deleteRecipeButton,
-#logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton
+#doneButton, #saveRecipeButton, #saveChangesButton, #closeButton, /* index.php */
+#logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton, /* index.php information "buttons" */
+#deleteRecipeButton, /* recipes.php */
+#changesSavedButton /* recipes.php information "buttons" */
 {
     padding: 10px 50px;
     display: none;
 }
 
 /* Centered buttons on modals */
-#saveRecipeButton, #logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton
+#saveRecipeButton,
+#logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton,
+#saveChangesButton,
+#changesSavedButton
 {
     position: absolute;
     left: 50%;
@@ -139,8 +144,9 @@ img {
     outline: none;
 }
 
+/* Green information "buttons" */
 /* Keeps recipeSavedMessageButton green and seem unclickable on hover*/
-#recipeSavedMessageButton
+#recipeSavedMessageButton:hover, #changesSavedButton:hover
 {
     color: #fff;
     background-color: #28a745;
@@ -148,6 +154,7 @@ img {
     cursor: default;
 }
 
+/* Yellow information "buttons" */
 /* Keeps alreadySavedMessageButton yellow and seem unclickable on hover*/
 #alreadySavedMessageButton:hover
 {
@@ -156,6 +163,14 @@ img {
     border-color: #ffc107;
     cursor: default;
 }
+
+
+#deleteRecipeButton
+{
+    position: absolute;
+    left: 15px;
+}
+
 
 #cookTime{
     width: 20px;
