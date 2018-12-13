@@ -15,13 +15,21 @@ $('#logInModal').on('hidden.bs.modal', function()
 });
     
 
-function createRecipeModal(id)
+function createRecipeModal(id, loggedIn)
 {
+    console.log("creating modal for id:" + id);
+    console.log("loggedIn: " + loggedIn);
+    
     $("#recipeModal").modal('show');
     $("#recipeModalLabel").html("");
     $("#recipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
     $("#recipeInfoDiv").html("");
+    
+    //Makes sure there are no residual buttons displayed
     $("#saveRecipeButton").css("display", "none");
+    $("#logInMessageButton").css("display", "none");
+    $("#recipeSavedMessageButton").css("display", "none");
+    $("#alreadySavedMessageButton").css("display", "none");
     $("#doneButton").css("display", "none");
     
     $.ajax(
@@ -45,7 +53,7 @@ function createRecipeModal(id)
                 vegetarian: data.vegetarian
             }
             
-            getRecipeDescription(id, recipeInformation);
+            getRecipeDescription(id, recipeInformation, loggedIn);
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -61,7 +69,7 @@ function createRecipeModal(id)
     });
 }
 
-function getRecipeDescription(id, recipe)
+function getRecipeDescription(id, recipe, loggedIn)
 {
     $.ajax(
     {
@@ -72,7 +80,7 @@ function getRecipeDescription(id, recipe)
         success: function(data, status)
         {
             $("#recipeModalLabel").html(recipe.title);
-            $("#recipeImgDiv").html("<img style='width:400px;height:250px' src='" + recipe.image + "' alt='" + recipe.title + "'/>");
+            $("#recipeImgDiv").html("<img id='" + id + "' style='width:400px;height:250px' src='" + recipe.image + "' alt='" + recipe.title + "'/>");
             
             //Fills modal body with recipe info
             //Passed in from first ajax call ( createRecipeModal() )
@@ -103,7 +111,11 @@ function getRecipeDescription(id, recipe)
                         .css("font-size", "18px");
                 }
                 
-                $("#saveRecipeButton").css("display", "block");
+                if(loggedIn)
+                    $("#saveRecipeButton").css("display", "block");
+                else
+                    $("#logInMessageButton").css("display", "block");
+                
                 $("#doneButton").css("display", "block");
         }, 
         //optional, used for debugging purposes

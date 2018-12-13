@@ -75,37 +75,16 @@ img {
     color: #565656;
     font-size: 20px;
 }
-.navbar-expand-lg .navbar-collapse {
-    font-size: 30px;
-}
 
-.recipeModalDivider
-{
-    border: 1px dashed gray;
-}
-
-#doneButton, #saveRecipeButton, #saveChangesButton, #closeButton, #deleteRecipeButton
-{
-    padding: 10px 50px;
-    display: none;
-}
-
-#saveRecipeButton
-{
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%)
-}
 
 #factText {
     font-size: 18px;
     width: 50%;
     margin: auto;
 }
-#cookTime{
-    width: 20px;
-    height: 20px;
+
+.navbar-expand-lg .navbar-collapse {
+    font-size: 30px;
 }
 
 #navbarUnclickable1:hover, #navbarUnclickable2:hover, #navbarUnclickable3:hover, #navbarUnclickable4:hover
@@ -117,35 +96,71 @@ img {
 
 #logInButton:hover, #logOutButton:hover
 {
-    cursor: default;
+    cursor: pointer;
 }
 
-#loginInfoDiv
+.recipeModalDivider
 {
-    color: blue;
+    border: 1px dashed gray;
 }
 
-#usernameTooltipButton
+/* Modal buttons */
+#doneButton, #saveRecipeButton, #saveChangesButton, #closeButton, #deleteRecipeButton,
+#logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton
 {
-    background: transparent;
-    font-size: 30px;
-    text-decoration: none;
-    /*border: none !important;*/
+    padding: 10px 50px;
+    display: none;
 }
 
-#usernameTooltipButton:focus
+/* Centered buttons on modals */
+#saveRecipeButton, #logInMessageButton, #recipeSavedMessageButton, #alreadySavedMessageButton
 {
-    border: none !important;
-    /*outline: none;*/
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
+
+/* Makes the button not seem like a button, more like just a message appearing */
+#logInMessageButton
+{
+    border: 0;
     outline: 0;
+    background-color: transparent;
+    color: gray;
 }
-
-#usernameTooltipButton:hover
+#logInMessageButton:hover
 {
     cursor: default;
 }
+#logInMessageButton:focus
+{
+    border: none;
+    outline: none;
+}
 
+/* Keeps recipeSavedMessageButton green and seem unclickable on hover*/
+#recipeSavedMessageButton
+{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    cursor: default;
+}
 
+/* Keeps alreadySavedMessageButton yellow and seem unclickable on hover*/
+#alreadySavedMessageButton:hover
+{
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    cursor: default;
+}
+
+#cookTime{
+    width: 20px;
+    height: 20px;
+}
 
 input[type=checkbox].css-checkbox{ display: none; }
 
@@ -170,4 +185,4 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
     vertical-align: top;
     width: 20px;
     height: 20px;
-}
+
