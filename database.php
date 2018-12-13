@@ -16,7 +16,7 @@ function getDatabaseConnection()
         $host = "localhost";
         $username = "Jerry";
         $password = "BabaBooey1"; // best practice: define this in a separte file
-        $dbname = "finalBase"; 
+        $dbname = "final"; 
     } 
     else if (strpos($_SERVER['SERVER_NAME'], "c9users") !== false) {
         // running on cloud9
