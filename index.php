@@ -7,6 +7,11 @@ include_once './api/spoonacularAPI.php';
 if(isset($_SESSION['user']))
 {
     $loggedIn = true;
+    $loggedUser = $_SESSION['user'];
+}
+else
+{
+    $loggedIn = false;    
 }
 
 if(isset($_GET['tag']))
@@ -15,10 +20,12 @@ if(isset($_GET['tag']))
     // $number = $_GET['quantity'];
 }
 
-if(isset($_GET['quantity'])){
+if(isset($_GET['quantity']))
+{
     $quantity = $_GET['quantity'];
 }
-if(isset($_GET['cookTime'])){
+if(isset($_GET['cookTime']))
+{
     $cookTime = $_GET['cookTime'];
 }
 
@@ -35,6 +42,7 @@ if(isset($_GET['cookTime'])){
         -->
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="icon" href="img/chefhat.png">
         <style>@import url("./css/styles.css");</style>
         <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
     
@@ -122,7 +130,7 @@ if(isset($_GET['cookTime'])){
                             // User can click anywhere on div (includes empty space on either side of image / title)
                             // ---------------------------------------------------------------------------------------
                             
-                            echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
+                            echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id, ' . $loggedIn . ')">';
                             echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
                             echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
                             echo '</div>';
@@ -144,9 +152,10 @@ if(isset($_GET['cookTime'])){
                             echo '<br/>';
                             */
                             
-                            
                         }
-                    }if(!empty($tag) && isset($_GET['cookTime']))
+                    }
+                    
+                    if(!empty($tag) && isset($_GET['cookTime']))
                     {
                         if($_GET['quantity'] == "")
                             $quantity = 5;
@@ -159,8 +168,9 @@ if(isset($_GET['cookTime'])){
                         {
                             $temp = getInstructions($recipes[$i]['id'])['readyInMinutes'];
                             
-                            if($temp <= $_GET['cookTime']){
-                                echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id)">';
+                            if($temp <= $_GET['cookTime'])
+                            {
+                                echo '<div class="recipeResult" id="' . $recipes[$i]['id'] . '" onclick="createRecipeModal(this.id, ' . $loggedIn . ')">';
                                 echo "<p style='color:white;margin-bottom: 20px'>" . $recipes[$i]['title'] . "</p>";
                                 echo "<img style='width:500px;height:344px' src='" . $recipes[$i]['image'] ."'>";
                                 echo '</div>';
@@ -189,7 +199,18 @@ if(isset($_GET['cookTime'])){
                                 <div style="inline-block" id="recipeInfoDiv" ></div> <!-- RECIPE INFO GOES HERE -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveRecipeButton" onclick="saveRecipe('<?php echo $_SESSION['user'] ?>')">Save Recipe</button>
+                                <?php 
+                                    if($loggedIn)
+                                    {
+                                        echo '<button type="button" class="btn btn-primary" id="saveRecipeButton">Save Recipe</button>';
+                                        echo '<button type="button" class="btn btn-success" id="recipeSavedMessageButton" onclick="this.blur()">Recipe saved!</button>';
+                                        echo '<button type="button" class="btn btn-warning" id="alreadySavedMessageButton" onclick="this.blur()">Recipe already saved!</button>';
+                                    }
+                                    else
+                                    {
+                                        echo '<button type="button" class="btn btn-secondary" id="logInMessageButton" onclick="this.blur()">Log in to save recipe</button>';
+                                    }
+                                ?>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="doneButton">Done</button>
                             </div>
                         </div>
@@ -223,7 +244,9 @@ if(isset($_GET['cookTime'])){
                         </div>
                     </div>
                 </div> <br/>
-            
+                
+                <?php echo "<input type='hidden' id='hiddenUsername' value='" . $_SESSION['user'] . "'>" ?>
+                
         </main>
         
         <script src="inc/js/functions.js"></script>

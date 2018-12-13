@@ -22,6 +22,7 @@ if(isset($_SESSION['user']))
         -->
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link rel="icon" href="img/chefhat.png">
         <style>@import url("./css/styles.css");</style>
         <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
     
