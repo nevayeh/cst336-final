@@ -10,6 +10,8 @@ if(isset($_SESSION['user']))
     $name = $_SESSION['user'];
     
 }
+else
+    header("Location: index.php");
 
 ?>
 
