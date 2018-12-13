@@ -261,11 +261,3 @@ function insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription)
 
 
 
-$("#cookTime").on("click", function(){
-   if($(this).is(":checked")){
-       console.log("CHECKED");
-       $("#base").html("");
-   }
-});
-
-

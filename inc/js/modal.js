@@ -122,10 +122,10 @@ function getRecipeDescription(id, recipe)
 }
 
 
-function createEditRecipeModal(id)
+function createEditRecipeModal(name)
 {
     $("#editRecipeModal").modal('show');
-    $("#editRecipeModalLabel").html("");
+    $("#editRecipeModalLabel").html(name);
     $("#editRecipeImgDiv").html('<img style="width: 100px; height: 100px" src="img/loading-circle.gif" alt="loading"/>');
     $("#editRecipeInfoDiv").html("");
     $("#deleteRecipeButton").css("display", "none");

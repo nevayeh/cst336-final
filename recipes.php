@@ -28,8 +28,6 @@ $name = $_SESSION['user'];
         
         <main>
             <?php include_once "inc/navigation.php";?>
-            
-            <button onclick="createEditRecipeModal(977701)">TEST</button>
 
 
             <!--RECIPE MODAL-->
@@ -85,22 +83,6 @@ $name = $_SESSION['user'];
                 $statement = $dbConn->prepare($sql);
                 $statement->execute();
                 $records = $statement->fetchAll();
-                //print_r($records);
-                //$tableSize = sizeof($records);
-                // echo $tablSize;
-                // for($j = 0; j < $tableSize; $j++){
-                //     echo "<tr>";
-                    
-                //     for($k = 0; $k < 3; $k++){
-                //         echo "<td>";
-                        
-                //         $records[0]['name'];
-                //         echo "<span>" . $records[0]['name'] . "</span>";
-                //         echo "</td>";
-                //     }
-                //     echo "</tr>";
-                // }
-                
                 foreach($records as $recipe){
                     //print_r($recipe);
                     // $temp = 0;
@@ -118,15 +100,21 @@ $name = $_SESSION['user'];
                         
                     //     echo "</tr>";
                     // echo "</table>";
-                    echo "<table>";
-                        echo "<tr>";
-                            echo "<td>";
-                                echo $recipe['name'];
-                                echo "</br>";
-                                echo "<img src='" . $recipe['imageURL'] . "'/>";
-                            echo "</td>";
-                        echo "</tr>";
-                    echo "</table>";
+                    // echo "<table>";
+                    //     echo "<tr>";
+                    //         echo "<td>";
+                    //             echo $recipe['name'];
+                    //             echo "</br>";
+                    //             echo "<img src='" . $recipe['imageURL'] . "'/>";
+                    //         echo "</td>";
+                    //     echo "</tr>";
+                    // echo "</table>";
+                    //$temp = $recipe['name'];
+                    echo '<div class="recipeResult" id="' . $recipe['name'] . '" onclick="createEditRecipeModal(this.id)">';
+                            echo "<p style='color:white;margin-bottom: 20px'>" . $recipe['name'] . "</p>";
+                            echo "<img style='width:500px;height:344px' src='" . $recipe['imageURL'] ."'>";
+                            echo '</div>';
+                            echo '<br/><br/>';
                     
                 }
             }
