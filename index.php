@@ -67,9 +67,9 @@ if(isset($_GET['cookTime']))
             <form>
                 <div class = 'inputs'>
                     <input class = 'inputs' type="text" name="tag" placeholder = "e.g. Milk, Chocolate" value="<?=$_GET['tag']?>"/>
-                    <input type="number" name="quantity" min="1" max="5" placeholder="#" value="<?php echo isset($_GET['quantity']) ? $_GET['quantity'] : 5 ?>" />
-                    <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/><br>
-                    Ready in 30 min or Less<br><input type="checkbox" id="cookTime" name="cookTime" value="30">
+                    <input class = 'inputs 'type="number" name="quantity" min="1" max="5" placeholder="#" value="<?php echo isset($_GET['quantity']) ? $_GET['quantity'] : 5 ?>" />
+                    <input class = 'inputs' type="image" src = './img/glass.png' id = 'searchButton'/>
+                    <input id="checkboxid" type="checkbox" class="css-checkbox specialCheck" name = "cookTime" value = "30"><label for="checkboxid" class="css-label"></label>
                 </div>
                 
             </form>

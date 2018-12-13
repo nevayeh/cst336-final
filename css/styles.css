@@ -162,3 +162,27 @@ img {
     height: 20px;
 }
 
+input[type=checkbox].css-checkbox{ display: none; }
+
+.css-label{
+    
+    width: 83px;
+    height: 48px;
+    background-image: url(../img/time.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+ background-position: 0 0;
+ border: 3px solid #2FBCDF;
+ border-radius: 7px;
+}
+
+.specialCheck {
+    display: inline;
+    vertical-align: top;
+    width: 20px;
+    height: 20px;
+
