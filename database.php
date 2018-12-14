@@ -3,7 +3,7 @@
 function getDatabaseConnection()
 {
     //Neva's localhost (here for testing)
-    if (strpos($_SERVER['SERVER_NAME'], "nevayeh") !== false) {
+    if (strpos($_SERVER['SERVER_NAME'], "nevayeh.c9users") !== false) {
         // running on cloud9
         $host = "localhost";
         $username = "nyeh";

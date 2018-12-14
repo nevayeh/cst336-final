@@ -27,7 +27,7 @@ if(isset($_GET['cookTime']))
     $cookTime = true;
 else
     $cookTime = false;
-
+    
 ?>
 
 <!DOCTYPE html>
