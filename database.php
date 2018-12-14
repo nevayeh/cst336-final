@@ -25,6 +25,15 @@ function getDatabaseConnection()
         $password = "cst336"; // best practice: define this in a separte file
         $dbname = "final"; 
     } 
+    //Neva's Heroku DB
+    else if(strpos($_SERVER['SERVER_NAME'], 'cst336-nevayeh-final') !== false)
+    {
+       //running on Heroku
+        $host = "us-cdbr-iron-east-01.cleardb.net";
+        $username = "b5a706b2943846";
+        $password = "6db517db"; // best practice: define this in a seperate file
+        $dbname = "heroku_74832e9767c0d39";
+    }
     else {
        //running on Heroku
         $host = "us-cdbr-iron-east-01.cleardb.net";
