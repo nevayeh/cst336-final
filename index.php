@@ -28,6 +28,11 @@ if(isset($_GET['cookTime']))
 else
     $cookTime = false;
 
+echo "<pre>";
+var_dump($_SERVER['SERVER_NAME']);
+echo "</pre>";
+
+
 ?>
 
 <!DOCTYPE html>
