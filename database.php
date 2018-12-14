@@ -23,7 +23,7 @@ function getDatabaseConnection()
         $host = "localhost";
         $username = "jon";
         $password = "cst336"; // best practice: define this in a separte file
-        $dbname = "Final"; 
+        $dbname = "final"; 
     } 
     else {
        //running on Heroku
