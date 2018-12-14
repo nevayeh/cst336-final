@@ -71,11 +71,11 @@ else
                         
     
                     $colCounter += 1;
-                    echo "<td style='padding:10px'>";
+                    echo "<td style='width:300px;height:100px;padding:10px'>";
                     
                     echo '<div class="recipeResultThumbnail" id="' . $recipe['recipeid'] . '" onclick="createEditRecipeModal(this.id)">';
-                    echo "<p style='color:white;margin-bottom:10px;font-size:28px'>" . $recipe['name'] . "</p>";
                     echo "<img style='width:300px;height:184px' src='" . $recipe['imageURL'] ."'>";
+                    echo "<span style='color:white;margin-bottom:10px;font-size:18px'>" . $recipe['name'] . "</span>";
                     echo '</div>';
                     echo '<br/><br/>';
                     

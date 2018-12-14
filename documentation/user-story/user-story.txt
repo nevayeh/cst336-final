@@ -1,0 +1,27 @@
+User Story
+
+Home Page
+    - User can log in to save recipes using the Log In button at the top left corner
+    - User can type ingredients, separated by commas, into the main search bar
+    - User can limit how many results they want to be seen via the number box next to the search bar
+    - User can click on magnifying glass icon to initiate search
+    - User can click on < 30 icon, followed by the magnifying glass icon, to limit results to recipes that 
+      can be prepared within 30 minutes
+    - User can click on result image or name to open up more information about the respective recipe
+    - User can save recipe, if logged in
+    - User can navigate to other pages via nabigation bar links in top right corner, if logged in
+    - User can log out at any time but will be brought back to the Home Page upon doing so
+    - User will lose access to other pages while logged out
+    
+Recipes Page
+    - User can view the recipes saved
+    - User can click on recipe thumbnail to show more information about the respective recipe
+    - User can click on any text, including the title, to edit the recipe as pleased
+    - User can remove a recipe from saved recipes via left "Delete Recipe" button
+    - User must confirm the deletion of the recipe
+    - User can save changes via center "Save Changes" button
+    - User can continuously save after editing, granted that they click on either the title or desription
+      again
+      
+Activity Page
+    - User can view actions performed on recipes as well as time of occurence

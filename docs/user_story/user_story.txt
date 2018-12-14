@@ -1,7 +1,0 @@
-User story:
-The user can type ingredients that they would like to use to cook with. The page will then 
-load recipe suggestions based on the ingredients the user input. The user can also select the 
-"30 minutes or less button" which will only load recipe's which require less than 30
-minutes to prepare. The user can also limit the amount of results which they would like to display.
-The user can also log into their profile which will enable them to view their saved recipe's.
-The user can also delete these saved recipe's. 
