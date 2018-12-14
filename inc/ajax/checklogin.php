@@ -1,9 +1,6 @@
 <?php
-// session_start(); 
 
 include '../../database.php'; 
-
-$dbConn = getDatabaseConnection(); 
 
 $username = $_GET['username'];
 $password = $_GET['password'];
@@ -14,7 +11,7 @@ function validate($username, $password) {
     global $dbConn; 
     $dbConn = getDatabaseConnection(); 
     
-    $sql = "SELECT * FROM `final_users` WHERE username=:username AND password=:password"; 
+    $sql = "SELECT * FROM `final_users` WHERE username=:username AND password=SHA1(:password)"; 
     $statement = $dbConn->prepare($sql); 
     $statement->execute(array(':username' => $username, ':password' => $password));
 

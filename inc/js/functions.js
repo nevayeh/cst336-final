@@ -165,41 +165,27 @@ function getNewFoodFact()
 
 
 
-
-
-function saveRecipe(username)
+$("#saveRecipeButton").click(function()
 {
-    // alert("saving recipe (WIP)");
-    
-    console.log("saving recipe, going to go into getUserFromDB.php");
-    console.log("username given: " + username);
-    console.log(typeof username);
+    var loggedUser = $("#hiddenUsername").val();
     
     $.ajax(
     {
         type: "get",
-        url: "inc/ajax/getUserIDFromDB.php",
+        url: "inc/ajax/database/getUserIDFromDB.php",
         dataType: "json",
-        data: {"user": username}, 
+        data: {"user": loggedUser}, 
         success: function(data, status)
         {
-            // console.log(data);
-            // console.log(typeof data);
-            
-            // console.log(data[0].userid);
-            
+
             var userid = data[0].userid;
+            
+            var recipeId = $("#recipeImgDiv img").attr("id");
             var recipeName = $("#recipeModalLabel").text();
             var recipeImgURL = $('#recipeImgDiv img').attr('src');
-            var recipeDescription = $("#recipeInfoDiv").text();
+            var recipeDescription = $("#recipeInfoDiv").html();
             
-            
-            // console.log(userid);
-            // console.log(recipeName);
-            // console.log(recipeImgURL);
-            // console.log(recipeDescription);
-           
-            insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription); 
+            insertRecipeIntoDB(userid, recipeId, recipeName, recipeImgURL, recipeDescription); 
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -208,42 +194,37 @@ function saveRecipe(username)
         },  
         error: function(data, status)
         {
-            alert("error saving recipe");   
+            // alert("error saving recipe");   
             console.log("ERROR saving recipe");
             console.log(data);
         }
     });
     
+});
+
     
-    
-    
-    
-    // $("#recipeModal").modal('hide');
-    
-}    
-    
-    
-function insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription)
+function insertRecipeIntoDB(userid, recipeId, recipeName, recipeImgURL, recipeDescription)
 {
     $.ajax(
     {
         type: "get",
-        url: "inc/ajax/insertRecipeIntoDB.php",
+        url: "inc/ajax/database/insertRecipeIntoDB.php",
         dataType: "json",
-        data: {"id": userid, "name": recipeName, "img": recipeImgURL, "desc": recipeDescription}, 
+        data: {"id": userid, "recipeId": recipeId, "name": recipeName, "img": recipeImgURL, "desc": recipeDescription}, 
         success: function(data, status)
         {
+            if(data == "Duplicate")
+            {
+                // console.log("Yeet")
+                
+                $("#saveRecipeButton").css("display", "none");
+                $("#alreadySavedMessageButton").css("display", "block");
+            }
+            else
+            {
+                console.log("Yeet yeet");
+            }
             
-            
-            // console.log(userid);
-            // console.log(recipeName);
-            // console.log(recipeImgURL);
-            // console.log(recipeDescription);
-           
-            // insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription); 
-            
-            console.log("inserted into db");
-            console.log("succes message: " + data);
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -252,20 +233,123 @@ function insertRecipeIntoDB(userid, recipeName, recipeImgURL, recipeDescription)
         },  
         error: function(data, status)
         {
-            // alert("error insert into db");   
-            // console.log("ERROR inserting into db");
-            // console.log(data.responseText);
+            // Not sure why, but ends up in error function after successfully inserting into database
+            $("#saveRecipeButton").css("display", "none");
+            $("#recipeSavedMessageButton").css("display", "block");
         }
     });
 }
 
+$("#saveChangesButton").click(function()
+{
+    var userid = $("#hiddenUserID").val();
+    var recipeid = $("#hiddenRecipeID").val();
+    
+    var recipeNewName = $("#editRecipeModalLabel").text();
+    //Cannot change image for now
+    var recipeNewDescription = $("#editRecipeInfoDiv").html();
+    
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/database/editRecipeInDB.php",
+        dataType: "json",
+        data: {"user": userid, "recipe": recipeid, "newName": recipeNewName, "newDesc": recipeNewDescription}, 
+        success: function(data, status)
+        {
+            // console.log("SHOULD SAY EDITED: " + data);
+            
+            $("#saveChangesButton").css("display", "none");
+            $("#changesSavedButton").css("display", "block");
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            //alert(status);
+        },  
+        error: function(data, status)
+        {
+            // alert("error saving recipe");   
+            console.log("ERROR saving CHANGES");
+            console.log(data);
+        }
+    });
+});
 
+//Unsets the "changes saved" button and resets the "save changes" button so the user can
+//keep changing without closing the modal if they want
+// $("editRecipeInfoDiv").click(function()
+$("#editRecipeInfoDiv").focus(resetSaveChangesButton);
+$("#editRecipeModalLabel").focus(resetSaveChangesButton);
 
-$("#cookTime").on("click", function(){
-   if($(this).is(":checked")){
-       console.log("CHECKED");
-       $("#base").html("");
-   }
+function resetSaveChangesButton()
+{
+    // console.log("click")
+    if($("#changesSavedButton").css("display") == "block")
+    {
+        // console.log("CHANGES SHOWN");
+        
+        $("#changesSavedButton").css("display", "none");
+        $("#saveChangesButton").css("display", "block");
+    }
+}
+
+$('#editRecipeModal').on('hidden.bs.modal', function ()
+{
+    location.reload(); 
 });
 
 
+
+//Both modals on same z-index by default
+//Puts the z-index of the first modal below 1039 so it falls behind the backdrop when the second modal opens
+$('#confirmationModal').on('show.bs.modal', function ()
+{
+    $('#editRecipeModal').css('z-index', 1039);
+});
+
+//Puts the z-index of the first modal back to default 1040 when second modal is hidden
+$('#confirmationModal').on('hidden.bs.modal', function ()
+{
+    $('#editRecipeModal').css('z-index', 1041);
+});
+
+
+$("#deleteRecipeButton").click(function()
+{
+    $("#confirmationModal").modal("show");
+});
+
+
+$("#yesButton").click(function()
+{
+    $("#editRecipeModal").modal("hide");
+    
+    var userid = $("#hiddenUserID").val();
+    var recipeid = $("#hiddenRecipeID").val();
+    
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/database/removeRecipeFromDB.php",
+        dataType: "json",
+        data: {"id": userid, "recipeId": recipeid}, 
+        success: function(data, status)
+        {
+            // if(data == "Removed")
+            // {
+                
+            // }
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            //alert(status);
+        },  
+        error: function(data, status)
+        {
+            alert("error Deeleting");
+            console.log(data);
+        }
+    });
+});
