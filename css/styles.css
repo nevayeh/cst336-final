@@ -84,7 +84,7 @@ img {
 }
 
 .navbar-expand-lg .navbar-collapse {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #navbarUnclickable1:hover, #navbarUnclickable2:hover, #navbarUnclickable3:hover, #navbarUnclickable4:hover
@@ -129,8 +129,8 @@ img {
 /* Makes the button not seem like a button, more like just a message appearing */
 #logInMessageButton
 {
-    border: 0;
-    outline: 0;
+    border: none;
+    outline: none;
     background-color: transparent;
     color: gray;
 }
@@ -138,10 +138,9 @@ img {
 {
     cursor: default;
 }
-#logInMessageButton:focus
+#logInMessageButton:focus, #logInMessageButton:active
 {
-    border: none;
-    outline: none;
+    box-shadow: none;
 }
 
 /* Green information "buttons" */
@@ -200,4 +199,4 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
     vertical-align: top;
     width: 20px;
     height: 20px;
-
+}

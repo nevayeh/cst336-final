@@ -1,17 +1,17 @@
 <?php
 session_start();
 
-include 'database.php';
-include_once './api/spoonacularAPI.php';
+include_once "inc/functions.php";
 
 if(isset($_SESSION['user']))
 {
     $loggedIn = true;
     $name = $_SESSION['user'];
-    
 }
 else
+{
     header("Location: index.php");
+}
 
 ?>
 
@@ -36,9 +36,56 @@ else
     
     <body>
         
+        <?php include_once "inc/navigation.php"; ?>
+        
         <main>
-            <?php include_once "inc/navigation.php";?>
 
+            <h1>Your Recipes</h1>
+            <h2>Click on any image to be able to edit it.<br/>
+            Once the window opens, you can click on the title and/or the information and change it.</h2>
+    
+            <?php
+                echo "<input type='hidden' id='hiddenUserID' value='" . getUserID() . "'>";
+                echo "<input type='hidden' id='hiddenRecipeID' value=''>";
+                echo "<input type='hidden' id='hiddenRecipeName' value=''>";
+                
+                $records = getUserRecipes();
+            
+                $colCounter = 0;
+                $endRowTag = false;
+    
+                echo "<table style='margin:auto;'>";
+        
+                foreach($records as $recipe)
+                {
+        
+                    if($colCounter % 3 == 0)
+                    {
+                        echo "<tr>";
+                        $endRowTag = true;
+                    }
+                    else
+                    {
+                        $endRowTag = false;
+                    }
+                        
+    
+                    $colCounter += 1;
+                    echo "<td style='padding:10px'>";
+                    
+                    echo '<div class="recipeResultThumbnail" id="' . $recipe['recipeid'] . '" onclick="createEditRecipeModal(this.id)">';
+                    echo "<p style='color:white;margin-bottom:10px;font-size:28px'>" . $recipe['name'] . "</p>";
+                    echo "<img style='width:300px;height:184px' src='" . $recipe['imageURL'] ."'>";
+                    echo '</div>';
+                    echo '<br/><br/>';
+                    
+                    echo "</td>";
+                }
+                    
+                if($endRowTag)
+                    echo "</tr>";    
+            ?>
+        
             <!--EDIT RECIPE MODAL-->
             <div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -54,7 +101,6 @@ else
                             <div style="inline-block" id="editRecipeInfoDiv" ></div> <!-- RECIPE INFO TO EDIT GOES HERE -->
                         </div>
                         <div class="modal-footer">
-                            <!--<button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteRecipeButton">Delete Recipe</button>-->
                             <button type="button" class="btn btn-danger" id="deleteRecipeButton">Delete Recipe</button>
                             <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
                             <button type="button" class="btn btn-success" id="changesSavedButton">Changes saved!</button>
@@ -64,6 +110,7 @@ else
                 </div>
             </div> 
             
+            <!-- CONFIRMATION MODAL (CONFIRMS DELETE) -->
             <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
@@ -86,86 +133,10 @@ else
                 </div>
             </div> 
             
-            
-        <?php
-            echo "<input type='hidden' id='hiddenUserID' value='" . getUserID() . "'>";
-            echo "<input type='hidden' id='hiddenRecipeID' value=''>";
-            // echo "<h1>" . getUserID() . "</h1>";
-        ?>
-            
         </main>
         
         <script src="inc/js/functions.js"></script>
         <script src="inc/js/modal.js"></script>
-        <!--<h1><?php echo $name ?>'s Recipes</h1>-->
-        <br/>
-        <h1>Your Recipes</h1>
-        <h2>Click on any image to be able to edit it.<br/>
-        Once the window opens, you can click on the title and/or the information and change it.</h2>
-
-        <?php
-            function getUserID(){
-                $dbConn = getDatabaseConnection();
-                $name = $_SESSION['user'];
-                $temp = '"'. $name . '"';
-                $sql = "SELECT userid FROM `final_users` WHERE username=" . $temp;
-                $statement = $dbConn->prepare($sql);
-                $statement->execute();
-                $records = $statement->fetchAll();
-                return $records[0]['userid'];
-            }
-            
-            function getUserData(){
-                $userID = getUserID();
-                $dbConn = getDatabaseConnection();
-                // $sql = "SELECT final_user_recipes.userid, final_user_recipes.name, final_user_recipes.imageURL, final_user_recipes.description
-                $sql = "SELECT * 
-                        FROM final_user_recipes
-                        INNER JOIN final_users
-                        ON final_user_recipes.userid=final_users.userid
-                        WHERE final_user_recipes.userid=" . $userID;
-                $statement = $dbConn->prepare($sql);
-                $statement->execute();
-                $records = $statement->fetchAll();
-                foreach($records as $recipe){
-                    //print_r($recipe);
-                    // $temp = 0;
-                    // echo "<table>";
-                    //     echo "<tr>";
-                    //     while($temp < 3) {
-                            
-                    //         echo "<td>";
-                    //             echo $recipe['name'];
-                    //             echo "</br>";
-                    //             echo "<img src='" . $recipe['imageURL'] . "'/>";
-                    //         echo "</td>";
-                    //         $temp++;
-                    //     }
-                        
-                    //     echo "</tr>";
-                    // echo "</table>";
-                    // echo "<table>";
-                    //     echo "<tr>";
-                    //         echo "<td>";
-                    //             echo $recipe['name'];
-                    //             echo "</br>";
-                    //             echo "<img src='" . $recipe['imageURL'] . "'/>";
-                    //         echo "</td>";
-                    //     echo "</tr>";
-                    // echo "</table>";
-                    //$temp = $recipe['name'];
-                    // echo '<div class="recipeResult" id="' . $recipe['name'] . '" onclick="createEditRecipeModal(this.id)">';
-                    echo '<div class="recipeResult" id="' . $recipe['recipeid'] . '" onclick="createEditRecipeModal(this.id)">';
-                            echo "<p style='color:white;margin-bottom: 20px'>" . $recipe['name'] . "</p>";
-                            echo "<img style='width:500px;height:344px' src='" . $recipe['imageURL'] ."'>";
-                            echo '</div>';
-                            echo '<br/><br/>';
-                    
-                }
-            }
-            
-            getUserData();
         
-        ?>
     </body>    
 </html>

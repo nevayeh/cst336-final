@@ -1,8 +1,6 @@
 //Handles form logic of log in modal
 $("#signInButton").click(function()
 {
-    console.log("Sign in button clicked, checking database");
-    
     var keepFact = $("#factText").text();
     
     $.ajax({
@@ -15,18 +13,10 @@ $("#signInButton").click(function()
         datatype: "json",
         success: function(data, status)
         {
-            console.log('success, went into checklogin.php')
-            
             var jsonData = jQuery.parseJSON(data);
-            // console.log("username? " + jsonData.username);
-            // console.log("found? " + jsonData.found);
-            
-            console.log("FACT: " + keepFact);
             
             if(jsonData.found == "true")
             {
-                console.log("good login");
-                
                 //Logs in user using their unique unsername
                 //Stores fact into session so it doesn't change after the reload (next line)
                 login(jsonData.username, keepFact); 
@@ -36,19 +26,15 @@ $("#signInButton").click(function()
             }
             else
             {
-                console.log("bad login");
-                
                 $("#logInVerification").html('Your username and/or password do not match our records')
                     .css("color", "red")
                     .css("font-size", "20px")
                     .css("padding-bottom", "20px");
             }
-
         },
         fail: function(data, status)
         {
-            alert('fail sign in ajax');
-            console.log(data);
+            // alert('fail sign in ajax');
         },
         complete: function()
         {
@@ -63,8 +49,6 @@ $("#signInButton").click(function()
 //Helper function to log user in, also stores fact into session
 function login(username, fact)
 {
-    console.log("logging in " + username);
-    
     $.ajax(
     {
         type: "get",
@@ -73,7 +57,7 @@ function login(username, fact)
         data: {"username" : username, "fact": fact},
         success: function(data, status)
         {
-            console.log("data from loginUser.php: " + data);
+            
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -82,9 +66,7 @@ function login(username, fact)
         },  
         error: function(data, status)
         {
-            alert("error login");   
-            console.log("error login");
-            console.log(data);
+            // alert("error login");   
         }
     });
     
@@ -93,8 +75,6 @@ function login(username, fact)
 //Helper function to log user out, also stores fact into session
 function logout()
 {
-    console.log("logging out");
-    
     var keepFact = $("#factText").text();
 
     $.ajax(
@@ -105,8 +85,6 @@ function logout()
         data: {"fact" : keepFact}, //stores fact into session
         success: function(data, status)
         {
-            console.log("data from logoutUser.php: " + data); 
-            
             //If already on index.php, will reload page
             if($(location).attr('href').search("index.php") > -1) 
             {
@@ -120,7 +98,6 @@ function logout()
                 // ^ This causes the Food Fact div to be empty after logging out
                 // This gets a new food fact and stores it in $_SESSION (pseudo keepFact)
                 getNewFoodFact();
-                
             }
         }, 
         //optional, used for debugging purposes
@@ -130,9 +107,7 @@ function logout()
         },  
         error: function(data, status)
         {
-            alert("error logout");   
-            console.log("ERROR logout");
-            console.log(data);
+            // alert("error logout");   
         }
     });
 }
@@ -147,7 +122,7 @@ function getNewFoodFact()
         data: {}, //stores fact into session
         success: function(data, status)
         {
-            console.log("data from getNewFoodFact.php: " + data); 
+            
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -156,13 +131,10 @@ function getNewFoodFact()
         },  
         error: function(data, status)
         {
-            alert("error food fact");   
-            console.log("ERROR food fact");
-            console.log(data);
+            // alert("error food fact");
         }
     });
 }
-
 
 
 $("#saveRecipeButton").click(function()
@@ -190,13 +162,11 @@ $("#saveRecipeButton").click(function()
         //optional, used for debugging purposes
         complete: function(data, status)
         {
-            //alert(status);
+
         },  
         error: function(data, status)
         {
             // alert("error saving recipe");   
-            console.log("ERROR saving recipe");
-            console.log(data);
         }
     });
     
@@ -215,16 +185,9 @@ function insertRecipeIntoDB(userid, recipeId, recipeName, recipeImgURL, recipeDe
         {
             if(data == "Duplicate")
             {
-                // console.log("Yeet")
-                
                 $("#saveRecipeButton").css("display", "none");
                 $("#alreadySavedMessageButton").css("display", "block");
             }
-            else
-            {
-                console.log("Yeet yeet");
-            }
-            
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -236,6 +199,8 @@ function insertRecipeIntoDB(userid, recipeId, recipeName, recipeImgURL, recipeDe
             // Not sure why, but ends up in error function after successfully inserting into database
             $("#saveRecipeButton").css("display", "none");
             $("#recipeSavedMessageButton").css("display", "block");
+            
+            logActivity(userid, "Saved", recipeName);
         }
     });
 }
@@ -249,6 +214,8 @@ $("#saveChangesButton").click(function()
     //Cannot change image for now
     var recipeNewDescription = $("#editRecipeInfoDiv").html();
     
+    var recipeName = $("#hiddenRecipeName").val();
+    
     $.ajax(
     {
         type: "get",
@@ -257,10 +224,11 @@ $("#saveChangesButton").click(function()
         data: {"user": userid, "recipe": recipeid, "newName": recipeNewName, "newDesc": recipeNewDescription}, 
         success: function(data, status)
         {
-            // console.log("SHOULD SAY EDITED: " + data);
-            
             $("#saveChangesButton").css("display", "none");
             $("#changesSavedButton").css("display", "block");
+            
+            logActivity(userid, "Edited", recipeName);
+            
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -270,8 +238,6 @@ $("#saveChangesButton").click(function()
         error: function(data, status)
         {
             // alert("error saving recipe");   
-            console.log("ERROR saving CHANGES");
-            console.log(data);
         }
     });
 });
@@ -284,11 +250,8 @@ $("#editRecipeModalLabel").focus(resetSaveChangesButton);
 
 function resetSaveChangesButton()
 {
-    // console.log("click")
     if($("#changesSavedButton").css("display") == "block")
     {
-        // console.log("CHANGES SHOWN");
-        
         $("#changesSavedButton").css("display", "none");
         $("#saveChangesButton").css("display", "block");
     }
@@ -298,8 +261,6 @@ $('#editRecipeModal').on('hidden.bs.modal', function ()
 {
     location.reload(); 
 });
-
-
 
 //Both modals on same z-index by default
 //Puts the z-index of the first modal below 1039 so it falls behind the backdrop when the second modal opens
@@ -328,6 +289,8 @@ $("#yesButton").click(function()
     var userid = $("#hiddenUserID").val();
     var recipeid = $("#hiddenRecipeID").val();
     
+    var recipeName = $("#hiddenRecipeName").val();
+    
     $.ajax(
     {
         type: "get",
@@ -336,10 +299,32 @@ $("#yesButton").click(function()
         data: {"id": userid, "recipeId": recipeid}, 
         success: function(data, status)
         {
-            // if(data == "Removed")
-            // {
-                
-            // }
+            logActivity(userid, "Deleted", recipeName);
+
+        }, 
+        //optional, used for debugging purposes
+        complete: function(data, status)
+        {
+            
+        },  
+        error: function(data, status)
+        {
+            // alert("error Deeleting");
+        }
+    });
+});
+
+function logActivity(user, activity, recipeName)
+{
+    $.ajax(
+    {
+        type: "get",
+        url: "inc/ajax/database/logActivityIntoDB.php",
+        dataType: "json",
+        data: {"id": user, "act": activity, "recipe": recipeName}, 
+        success: function(data, status)
+        {
+            
         }, 
         //optional, used for debugging purposes
         complete: function(data, status)
@@ -348,8 +333,7 @@ $("#yesButton").click(function()
         },  
         error: function(data, status)
         {
-            alert("error Deeleting");
-            console.log(data);
+            // alert("error logging");
         }
     });
-});
+}

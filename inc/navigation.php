@@ -29,17 +29,21 @@
                 <a class="nav-link" id="navbarUnclickable3">|</a>
             </li>
             
-            <!--<li class="nav-item">-->
-            <!--    <a class="nav-link" href="">Profile</a>-->
-            <!--</li>-->
-            <!-- Separator -->
-            <!--<li class="nav-item">-->
-            <!--    <a class="nav-link" id="navbarUnclickable4">|</a>-->
-            <!--</li>-->
-            
             <li class="nav-item">
                 <a class="nav-link" href="recipes.php">Your Recipes</a>
             </li>
+            
+            <!--Separator -->
+            <li class="nav-item">
+                <a class="nav-link" id="navbarUnclickable4">|</a>
+            </li>
+
+            
+            <li class="nav-item">
+                <a class="nav-link" href="activity.php">Activity Log</a>
+            </li>
+
+            
         </ul>
     </div>
     <?php } ?>
